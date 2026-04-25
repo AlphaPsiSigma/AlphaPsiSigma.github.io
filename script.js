@@ -164,7 +164,10 @@ function submitBooking() {
         `────────────────────────────────────\n` +
         `Submitted via alphapsisigma.github.io`
     );
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&to=jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com&su=${emailSubject}&body=${emailBody}`;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const gmailUrl = isMobile
+        ? `mailto:jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com?subject=${emailSubject}&body=${emailBody}`
+        : `https://mail.google.com/mail/?view=cm&to=jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com&su=${emailSubject}&body=${emailBody}`;
     const tgUrl    = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
 
     addMessage(
