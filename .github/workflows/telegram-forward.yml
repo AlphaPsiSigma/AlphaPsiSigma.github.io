@@ -74,5 +74,29 @@ jobs:
                   if result.get("ok"):
                       print(f"Forwarded message from {name}")
                   else:
-                      print(f"Failed: {result}")
+                      print(f"Failed to forward: {result}")
+
+              # Auto-reply to the user
+              reply_text = (
+                  f"👋 Hi {name}! Thank you for reaching out to *Alpha Psi Sigma Education Consultancy*.\n\n"
+                  f"We've received your message and will get back to you within 24 hours. 😊\n\n"
+                  f"In the meantime, feel free to visit our website for more information."
+              )
+              reply_payload = {
+                  "chat_id": chat_id,
+                  "text": reply_text,
+                  "parse_mode": "Markdown"
+              }
+              reply_data = json.dumps(reply_payload).encode()
+              reply_req  = urllib.request.Request(
+                  f"{BASE_URL}/sendMessage",
+                  data=reply_data,
+                  headers={"Content-Type": "application/json"}
+              )
+              with urllib.request.urlopen(reply_req) as r:
+                  result = json.loads(r.read())
+                  if result.get("ok"):
+                      print(f"Auto-replied to {name}")
+                  else:
+                      print(f"Failed to auto-reply: {result}")
           EOF
