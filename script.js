@@ -1,20 +1,3 @@
-// ── TELEGRAM CONFIG ──────────────────────────────────────────────────────────
-const TG_BOT_TOKEN    = 'PLACEHOLDER_BOT_TOKEN';
-const TG_ADMIN_CHAT   = 'PLACEHOLDER_ADMIN_CHAT';
-
-async function sendToTelegram(text) {
-    try {
-        await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: TG_ADMIN_CHAT, text, parse_mode: 'Markdown' })
-        });
-    } catch (e) {
-        console.warn('Telegram send failed:', e);
-    }
-}
-// ─────────────────────────────────────────────────────────────────────────────
-
 // ── CHATBOT WIDGET ───────────────────────────────────────────────────────────
 const chatWidget   = document.getElementById('chat-widget');
 const chatToggle   = document.getElementById('chat-toggle');
@@ -121,7 +104,7 @@ function showSlotForm() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-async function submitBooking() {
+function submitBooking() {
     const s1 = document.getElementById('slot-1').value;
     const s2 = document.getElementById('slot-2').value;
     const s3 = document.getElementById('slot-3').value;
@@ -139,34 +122,29 @@ async function submitBooking() {
     const savedEmail = bookingData.email;
     const savedPhone = bookingData.phone;
 
-    const tgMessage =
-        `📅 *New Booking Request via Website*\n\n` +
-        `👤 *Name:* ${savedName}\n` +
-        `📧 *Email:* ${savedEmail}\n` +
-        `📱 *Phone:* ${savedPhone}\n\n` +
-        `🕐 *Preferred Slots:*\n` +
+    const tgText =
+        `📅 Booking Request\n\n` +
+        `👤 Name: ${savedName}\n` +
+        `📧 Email: ${savedEmail}\n` +
+        `📱 Phone: ${savedPhone}\n\n` +
+        `🕐 Preferred Slots:\n` +
         `  Slot 1: ${fmt(s1)}\n` +
         `  Slot 2: ${fmt(s2)}\n` +
         `  Slot 3: ${fmt(s3)}\n\n` +
-        `💰 *Pricing Acknowledged:*\n` +
-        `  Deposit: SGD $20 (non-refundable)\n` +
-        `  Rate: SGD $2 per hour\n\n` +
-        `_Submitted via alphapsisigma.github.io_`;
+        `💰 Deposit: SGD $20 | Rate: SGD $2/hr`;
 
     bookingState = null;
     bookingData  = {};
 
-    // Show sending state
-    addMessage(`⏳ Sending your booking request...`, 'bot');
+    // Open Telegram with pre-filled message
+    window.open(`https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`, '_blank');
 
-    await sendToTelegram(tgMessage);
-
-    // Replace sending message with confirmation
-    const msgs = chatMessages.querySelectorAll('.chat-msg.bot .chat-bubble');
-    const last = msgs[msgs.length - 1];
-    if (last) last.innerHTML =
-        `✅ *Booking request sent!*<br><br>` +
-        `We've received your details and will confirm your slot with <strong>${savedEmail}</strong> or <strong>${savedPhone}</strong> within 24 hours. 🎉`;
+    addMessage(
+        `📲 Telegram is opening with your booking details pre-filled.<br><br>` +
+        `Just hit <strong>Send</strong> in Telegram to submit your request!<br><br>` +
+        `We'll confirm your slot with <strong>${savedEmail}</strong> within 24 hours. 🎉`,
+        'bot'
+    );
 }
 // ────────────────────────────────────────────────────────────────────────────
 
