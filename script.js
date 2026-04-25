@@ -126,7 +126,9 @@ function submitBooking() {
 
     const tgText =
         `📅 New Booking Request\n` +
-        `━━━━━━━━━━━━━━━━━━━━\n\n` +
+        `━━━━━━━━━━━━━━━━━━━━\n` +
+        `Thank you for booking a consultation with Alpha Psi Sigma!\n` +
+        `We will be in touch with you shortly to confirm your slot.\n\n` +
         `👤 Name:   ${savedName}\n` +
         `📧 Email:  ${savedEmail}\n` +
         `📱 Phone:  ${savedPhone}\n\n` +
