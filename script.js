@@ -146,14 +146,14 @@ function submitBooking() {
     bookingData  = {};
 
     const msgEl = addMessage(
-        `📲 Telegram opening in <strong><span id="tg-countdown">3</span></strong>s with your booking details pre-filled.<br><br>` +
+        `📲 Telegram opening in <strong><span id="tg-countdown">5</span></strong>s with your booking details pre-filled.<br><br>` +
         `Just hit <strong>Send</strong> in Telegram to submit your request!<br><br>` +
         `We'll confirm your slot with <strong>${savedEmail}</strong> within 24 hours. 🎉`,
         'bot'
     );
 
     // Countdown 3 → 2 → 1, then open Telegram
-    let count = 3;
+    let count = 5;
     const countdownEl = document.getElementById('tg-countdown');
     const interval = setInterval(() => {
         count--;
