@@ -61,11 +61,16 @@ export default {
             `🆔 *User ID:* \`${userId}\`\n\n` +
             `💬 *Message:*\n${text}`;
 
-        // Copy /reply command to clipboard on button tap
+        // Two reply buttons always shown
+        const pmUrl = sender.username
+            ? `https://t.me/${sender.username}`
+            : `tg://openmessage?user_id=${userId}`;
+
         const replyMarkup = {
             reply_markup: {
                 inline_keyboard: [[
-                    { text: '💬 Reply to User', copy_text: { text: `/reply ${userId} ` } }
+                    { text: '🤖 Reply via Bot', copy_text: { text: `/reply ${userId} ` } },
+                    { text: '💬 Private Message', url: pmUrl }
                 ]]
             }
         };
