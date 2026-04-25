@@ -519,7 +519,7 @@ p { color: var(--text-charcoal); font-size: 1.2rem; }
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
     gap: 2rem;
     margin-top: 2.5rem;
     justify-content: center;
@@ -1137,6 +1137,10 @@ footer p { color: rgba(255,255,255,0.8); }
 
     .hero-btns { justify-content: flex-start; }
     .card, .team-card { padding: 1.8rem 1.4rem; }
+    .team-card { max-width: 100%; }
+    .member-photo { width: 90px; height: 90px; }
+    .team-card h3 { font-size: 1rem; }
+    .team-card .bio { font-size: 0.88rem; }
     .stat-number { font-size: 2.4rem; }
 
     .tos-body { padding: 1rem 1.2rem; }
