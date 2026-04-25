@@ -125,15 +125,20 @@ function submitBooking() {
     const savedPhone = bookingData.phone;
 
     const tgText =
-        `📅 Booking Request\n\n` +
-        `👤 Name: ${savedName}\n` +
-        `📧 Email: ${savedEmail}\n` +
-        `📱 Phone: ${savedPhone}\n\n` +
+        `📅 New Booking Request\n` +
+        `━━━━━━━━━━━━━━━━━━━━\n\n` +
+        `👤 Name:   ${savedName}\n` +
+        `📧 Email:  ${savedEmail}\n` +
+        `📱 Phone:  ${savedPhone}\n\n` +
         `🕐 Preferred Slots:\n` +
-        `  Slot 1: ${fmt(s1)}\n` +
-        `  Slot 2: ${fmt(s2)}\n` +
-        `  Slot 3: ${fmt(s3)}\n\n` +
-        `💰 Deposit: SGD $20 | Rate: SGD $2/hr`;
+        `  1️⃣  ${fmt(s1)}\n` +
+        `  2️⃣  ${fmt(s2)}\n` +
+        `  3️⃣  ${s3 ? fmt(s3) : '—'}\n\n` +
+        `💰 Pricing Acknowledged:\n` +
+        `  • Deposit: SGD $20 (non-refundable)\n` +
+        `  • Rate: SGD $2 / hour\n\n` +
+        `━━━━━━━━━━━━━━━━━━━━\n` +
+        `Submitted via alphapsisigma.github.io`;
 
     bookingState = null;
     bookingData  = {};
