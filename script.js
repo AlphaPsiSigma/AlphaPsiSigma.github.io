@@ -137,8 +137,14 @@ function submitBooking() {
     bookingState = null;
     bookingData  = {};
 
-    // Open Telegram with pre-filled message
-    window.open(`https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`, '_blank');
+    // Open Telegram with pre-filled message (use anchor to avoid pop-up blocker)
+    const tgLink = document.createElement('a');
+    tgLink.href = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
+    tgLink.target = '_blank';
+    tgLink.rel = 'noopener';
+    document.body.appendChild(tgLink);
+    tgLink.click();
+    document.body.removeChild(tgLink);
 
     addMessage(
         `📲 Telegram is opening with your booking details pre-filled.<br><br>` +
