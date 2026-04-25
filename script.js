@@ -161,7 +161,7 @@ async function getBotReply(userMessage) {
     // Check booking flow first
     if (bookingState) {
         const flowReply = handleBookingFlow(userMessage);
-        if (flowReply !== null) return flowReply;
+        return flowReply !== null ? flowReply : '';
     }
 
     const msg = userMessage.toLowerCase();
@@ -193,7 +193,7 @@ async function handleSend() {
     const reply = await getBotReply(text);
     setTimeout(() => {
         removeTyping();
-        addMessage(reply, 'bot');
+        if (reply) addMessage(reply, 'bot');
     }, 800);
 }
 
