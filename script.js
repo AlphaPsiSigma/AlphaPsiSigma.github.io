@@ -145,10 +145,31 @@ function submitBooking() {
     bookingState = null;
     bookingData  = {};
 
+    const emailSubject = encodeURIComponent(`[Booking Request] ${savedName}`);
+    const emailBody = encodeURIComponent(
+        `Hi Alpha Psi Sigma Team,\n\n` +
+        `New Booking Request\n` +
+        `────────────────────\n` +
+        `Name:   ${savedName}\n` +
+        `Email:  ${savedEmail}\n` +
+        `Phone:  ${savedPhone}\n\n` +
+        `Preferred Slots:\n` +
+        `  Slot 1: ${fmt(s1)}\n` +
+        `  Slot 2: ${fmt(s2)}\n` +
+        `  Slot 3: ${s3 ? fmt(s3) : '—'}\n\n` +
+        `Pricing Acknowledged:\n` +
+        `  Deposit: SGD $20 (non-refundable)\n` +
+        `  Rate: SGD $2 / hour\n\n` +
+        `Submitted via alphapsisigma.github.io`
+    );
+    const mailtoUrl = `mailto:info@alphapsisigma.com?subject=${emailSubject}&body=${emailBody}`;
+
     const msgEl = addMessage(
         `📲 Telegram opening in <strong><span id="tg-countdown">5</span></strong>s with your booking details pre-filled.<br><br>` +
         `Just hit <strong>Send</strong> in Telegram to submit your request!<br><br>` +
-        `We'll confirm your slot with <strong>${savedEmail}</strong> within 24 hours. 🎉`,
+        `We'll confirm your slot with <strong>${savedEmail}</strong> within 24 hours. 🎉<br><br>` +
+        `<hr style="border:none;border-top:1px solid rgba(0,0,0,0.1);margin:8px 0">` +
+        `📧 <strong>No Telegram?</strong> <a href="${mailtoUrl}" style="color:#3a86d4">Submit via Email instead</a>`,
         'bot'
     );
 
