@@ -81,15 +81,15 @@ function showSlotForm() {
             <div class="slot-form">
                 <p class="slot-intro">Perfect! 📱 Please pick your <strong>3 preferred time slots</strong>:</p>
                 <div class="slot-row">
-                    <label>Slot 1 <span class="slot-req">*</span></label>
+                    <label for="slot-1">Slot 1 <span class="slot-req">*</span></label>
                     <input type="datetime-local" class="slot-input" id="slot-1">
                 </div>
                 <div class="slot-row">
-                    <label>Slot 2 <span class="slot-req">*</span></label>
+                    <label for="slot-2">Slot 2 <span class="slot-req">*</span></label>
                     <input type="datetime-local" class="slot-input" id="slot-2">
                 </div>
                 <div class="slot-row">
-                    <label>Slot 3 <span class="slot-opt">(optional)</span></label>
+                    <label for="slot-3">Slot 3 <span class="slot-opt">(optional)</span></label>
                     <input type="datetime-local" class="slot-input" id="slot-3">
                 </div>
                 <div class="slot-divider"></div>
@@ -145,52 +145,36 @@ function submitBooking() {
     bookingState = null;
     bookingData  = {};
 
-    const emailSubject = encodeURIComponent(`[Booking Request] ${savedName}`);
+    const emailSubject = encodeURIComponent(`[New Booking Request with Alpha Psi Sigma!] ${savedName}`);
     const emailBody = encodeURIComponent(
-        `Hi Alpha Psi Sigma Team,\n\n` +
-        `New Booking Request\n` +
-        `────────────────────\n` +
-        `Name:   ${savedName}\n` +
-        `Email:  ${savedEmail}\n` +
-        `Phone:  ${savedPhone}\n\n` +
-        `Preferred Slots:\n` +
-        `  Slot 1: ${fmt(s1)}\n` +
-        `  Slot 2: ${fmt(s2)}\n` +
-        `  Slot 3: ${s3 ? fmt(s3) : '—'}\n\n` +
-        `Pricing Acknowledged:\n` +
-        `  Deposit: SGD $20 (non-refundable)\n` +
-        `  Rate: SGD $2 / hour\n\n` +
+        `📅 New Booking Request with Alpha Psi Sigma!\n` +
+        `────────────────────────────────────\n` +
+        `Thank you for booking a consultation with Alpha Psi Sigma!\n` +
+        `We will be in touch with you shortly to confirm your slot.\n\n` +
+        `👤 Name:   ${savedName}\n` +
+        `📧 Email:  ${savedEmail}\n` +
+        `📱 Phone:  ${savedPhone}\n\n` +
+        `🕐 Preferred Slots:\n` +
+        `  1️⃣  ${fmt(s1)}\n` +
+        `  2️⃣  ${fmt(s2)}\n` +
+        `  3️⃣  ${s3 ? fmt(s3) : '—'}\n\n` +
+        `💰 Pricing Acknowledged:\n` +
+        `  • Deposit: SGD $20 (non-refundable)\n` +
+        `  • Rate: SGD $2 / hour\n\n` +
+        `────────────────────────────────────\n` +
         `Submitted via alphapsisigma.github.io`
     );
-    const mailtoUrl = `mailto:info@alphapsisigma.com?subject=${emailSubject}&body=${emailBody}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&to=jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com&su=${emailSubject}&body=${emailBody}`;
+    const tgUrl    = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
 
-    const msgEl = addMessage(
-        `📲 Telegram opening in <strong><span id="tg-countdown">5</span></strong>s with your booking details pre-filled.<br><br>` +
-        `Just hit <strong>Send</strong> in Telegram to submit your request!<br><br>` +
-        `We'll confirm your slot with <strong>${savedEmail}</strong> within 24 hours. 🎉<br><br>` +
-        `<hr style="border:none;border-top:1px solid rgba(0,0,0,0.1);margin:8px 0">` +
-        `📧 <strong>No Telegram?</strong> <a href="${mailtoUrl}" style="color:#3a86d4">Submit via Email instead</a>`,
+    addMessage(
+        `✅ Great! How would you like to send your booking request?<br><br>` +
+        `<div class="email-fallback-btns">` +
+        `<a href="${gmailUrl}" target="_blank" rel="noopener" class="email-fallback-btn gmail-btn">📧 Gmail</a>` +
+        `<a href="${tgUrl}" target="_blank" rel="noopener" class="email-fallback-btn tg-btn">📲 Telegram</a>` +
+        `</div>`,
         'bot'
     );
-
-    // Countdown 3 → 2 → 1, then open Telegram
-    let count = 5;
-    const countdownEl = document.getElementById('tg-countdown');
-    const interval = setInterval(() => {
-        count--;
-        if (countdownEl) countdownEl.textContent = count;
-        if (count <= 0) {
-            clearInterval(interval);
-            const tgLink = document.createElement('a');
-            tgLink.href = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
-            tgLink.target = '_blank';
-            tgLink.rel = 'noopener';
-            document.body.appendChild(tgLink);
-            tgLink.click();
-            document.body.removeChild(tgLink);
-            if (countdownEl) countdownEl.closest('.chat-bubble').querySelector('#tg-countdown').textContent = '🚀';
-        }
-    }, 1000);
 }
 // ────────────────────────────────────────────────────────────────────────────
 

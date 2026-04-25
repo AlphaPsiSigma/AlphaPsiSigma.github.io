@@ -940,6 +940,41 @@ footer p { color: rgba(255,255,255,0.8); }
 
 .slot-intro { font-size: 0.85rem; margin: 0 0 0.3rem 0; }
 
+.email-fallback-btns {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+}
+.email-fallback-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    flex: 1;
+    padding: 0.55rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.email-fallback-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    filter: brightness(1.08);
+}
+.email-fallback-btn:active { transform: translateY(0); }
+.gmail-btn {
+    background: linear-gradient(135deg, #ea4335, #c5271b);
+}
+.tg-btn {
+    background: linear-gradient(135deg, #29a0d8, #1a6fa8);
+}
+
 .slot-pricing {
     background: rgba(100,162,67,0.08);
     border-radius: 10px;
