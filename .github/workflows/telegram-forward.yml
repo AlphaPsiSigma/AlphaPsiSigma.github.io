@@ -1,0 +1,78 @@
+name: Telegram Bot Message Forwarder
+
+on:
+  schedule:
+    # Runs every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  forward-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check and forward new Telegram messages
+        env:
+          BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.parse
+          import json
+          import os
+
+          BOT_TOKEN     = os.environ['BOT_TOKEN']
+          ADMIN_CHAT_ID = os.environ['ADMIN_CHAT_ID']
+          BASE_URL      = f"https://api.telegram.org/bot{BOT_TOKEN}"
+
+          # Get updates (last 100)
+          with urllib.request.urlopen(f"{BASE_URL}/getUpdates?limit=100") as r:
+              updates = json.loads(r.read())
+
+          if not updates.get("ok") or not updates["result"]:
+              print("No new messages.")
+              exit(0)
+
+          for update in updates["result"]:
+              msg = update.get("message")
+              if not msg:
+                  continue
+
+              sender    = msg.get("from", {})
+              name      = f"{sender.get('first_name','')} {sender.get('last_name','')}".strip()
+              username  = sender.get("username", "no username")
+              user_id   = sender.get("id", "")
+              text      = msg.get("text", "(no text)")
+              chat_id   = msg["chat"]["id"]
+
+              # Skip messages from admin (yourself)
+              if str(chat_id) == str(ADMIN_CHAT_ID):
+                  continue
+
+              forward_text = (
+                  f"📬 *New message via AlphaPsiSigmaBot*\n\n"
+                  f"👤 *Name:* {name}\n"
+                  f"🔗 *Username:* @{username}\n"
+                  f"🆔 *User ID:* `{user_id}`\n\n"
+                  f"💬 *Message:*\n{text}"
+              )
+
+              payload = {
+                  "chat_id": ADMIN_CHAT_ID,
+                  "text": forward_text,
+                  "parse_mode": "Markdown"
+              }
+
+              data = json.dumps(payload).encode()
+              req  = urllib.request.Request(
+                  f"{BASE_URL}/sendMessage",
+                  data=data,
+                  headers={"Content-Type": "application/json"}
+              )
+              with urllib.request.urlopen(req) as r:
+                  result = json.loads(r.read())
+                  if result.get("ok"):
+                      print(f"Forwarded message from {name}")
+                  else:
+                      print(f"Failed: {result}")
+          EOF
