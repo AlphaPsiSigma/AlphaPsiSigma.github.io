@@ -237,6 +237,23 @@ chatInput.addEventListener('keydown', (e) => {
 });
 
 
+// "Join Us" button — mailto on mobile, Gmail web on desktop
+const joinUsBtn = document.getElementById('join-us-btn');
+if (joinUsBtn) {
+    const joinSubject = encodeURIComponent('[Join Us] Interest in Alpha Psi Sigma');
+    const joinBody    = encodeURIComponent(
+        'Hi Alpha Psi Sigma Team,\n\n' +
+        'I am interested in joining your team.\n\n' +
+        'Name: \nBackground: \nWhy I want to join: \n\n' +
+        'Please find my CV attached.\n\nThank you!'
+    );
+    const joinTo      = 'jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com';
+    const isMob       = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    joinUsBtn.href    = isMob
+        ? `mailto:${joinTo}?subject=${joinSubject}&body=${joinBody}`
+        : `https://mail.google.com/mail/?view=cm&to=${joinTo}&su=${joinSubject}&body=${joinBody}`;
+}
+
 // "Book a Slot" CTA → open chat + start booking flow
 document.getElementById('book-slot-cta').addEventListener('click', () => {
     if (!chatWidget.classList.contains('open')) chatWidget.classList.add('open');
