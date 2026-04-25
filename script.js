@@ -164,9 +164,18 @@ function submitBooking() {
         `────────────────────────────────────\n` +
         `Submitted via alphapsisigma.github.io`
     );
+    const mobileBody = encodeURIComponent(
+        `Name: ${savedName}\n` +
+        `Email: ${savedEmail}\n` +
+        `Phone: ${savedPhone}\n\n` +
+        `Slot 1: ${fmt(s1)}\n` +
+        `Slot 2: ${fmt(s2)}\n` +
+        `Slot 3: ${s3 ? fmt(s3) : '-'}\n\n` +
+        `Deposit: SGD $20 | Rate: SGD $2/hr`
+    );
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     const gmailUrl = isMobile
-        ? `mailto:jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com?subject=${emailSubject}&body=${emailBody}`
+        ? `mailto:jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com?subject=${emailSubject}&body=${mobileBody}`
         : `https://mail.google.com/mail/?view=cm&to=jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com&su=${emailSubject}&body=${emailBody}`;
     const tgUrl    = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
 
