@@ -1,3 +1,20 @@
+// ── TELEGRAM CONFIG ──────────────────────────────────────────────────────────
+const TG_BOT_TOKEN    = 'PLACEHOLDER_BOT_TOKEN';
+const TG_ADMIN_CHAT   = 'PLACEHOLDER_ADMIN_CHAT';
+
+async function sendToTelegram(text) {
+    try {
+        await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: TG_ADMIN_CHAT, text, parse_mode: 'Markdown' })
+        });
+    } catch (e) {
+        console.warn('Telegram send failed:', e);
+    }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 // ── CHATBOT WIDGET ───────────────────────────────────────────────────────────
 const chatWidget   = document.getElementById('chat-widget');
 const chatToggle   = document.getElementById('chat-toggle');
@@ -104,7 +121,7 @@ function showSlotForm() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function submitBooking() {
+async function submitBooking() {
     const s1 = document.getElementById('slot-1').value;
     const s2 = document.getElementById('slot-2').value;
     const s3 = document.getElementById('slot-3').value;
@@ -122,60 +139,34 @@ function submitBooking() {
     const savedEmail = bookingData.email;
     const savedPhone = bookingData.phone;
 
-    const subject = encodeURIComponent(`[Booking Request] ${savedName}`);
-
-    const body = encodeURIComponent(
-        `Hi Alpha Psi Sigma Team,\n\n` +
-        `A new consultation booking request has been submitted via the website.\n\n` +
-        `────────────────────────\n` +
-        `CLIENT DETAILS\n` +
-        `────────────────────────\n` +
-        `Name:   ${savedName}\n` +
-        `Email:  ${savedEmail}\n` +
-        `Phone:  ${savedPhone}\n\n` +
-        `────────────────────────\n` +
-        `PREFERRED SLOTS\n` +
-        `────────────────────────\n` +
-        `Slot 1: ${fmt(s1)}\n` +
-        `Slot 2: ${fmt(s2)}\n` +
-        `Slot 3: ${fmt(s3)}\n\n` +
-        `────────────────────────\n` +
-        `PRICING ACKNOWLEDGED\n` +
-        `────────────────────────\n` +
-        `Deposit: SGD $20 (non-refundable)\n` +
-        `Rate:    SGD $2 per hour\n\n` +
-        `Please reply to confirm the slot and payment instructions.\n\n` +
-        `────────────────────────\n` +
-        `ALPHA PSI SIGMA\n` +
-        `────────────────────────\n` +
-        `Educational Consultancy | Singapore & Malaysia\n` +
-        `Email:   info@alphapsisigma.com\n` +
-        `Website: https://alphapsisigma.github.io\n` +
-        `Founders: Dr. Jimmy Y. Zhong & Dr. Sim Kuan Goh\n\n` +
-        `This email was generated via the Alpha Psi Sigma website booking form.`
-    );
-
-    const mailtoLink = `mailto:info@alphapsisigma.com?subject=${subject}&body=${body}`;
-
-    // Open email client
-    const a = document.createElement('a');
-    a.href = mailtoLink;
-    a.target = '_blank';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    const tgMessage =
+        `📅 *New Booking Request via Website*\n\n` +
+        `👤 *Name:* ${savedName}\n` +
+        `📧 *Email:* ${savedEmail}\n` +
+        `📱 *Phone:* ${savedPhone}\n\n` +
+        `🕐 *Preferred Slots:*\n` +
+        `  Slot 1: ${fmt(s1)}\n` +
+        `  Slot 2: ${fmt(s2)}\n` +
+        `  Slot 3: ${fmt(s3)}\n\n` +
+        `💰 *Pricing Acknowledged:*\n` +
+        `  Deposit: SGD $20 (non-refundable)\n` +
+        `  Rate: SGD $2 per hour\n\n` +
+        `_Submitted via alphapsisigma.github.io_`;
 
     bookingState = null;
     bookingData  = {};
 
-    setTimeout(() => {
-        addMessage(
-            `📧 Your email client has opened with all your details pre-filled.<br><br>` +
-            `Just hit <strong>Send</strong> to complete your booking!<br><br>` +
-            `We'll confirm your slot with <strong>${savedEmail}</strong> within 24 hours. 🎉`,
-            'bot'
-        );
-    }, 500);
+    // Show sending state
+    addMessage(`⏳ Sending your booking request...`, 'bot');
+
+    await sendToTelegram(tgMessage);
+
+    // Replace sending message with confirmation
+    const msgs = chatMessages.querySelectorAll('.chat-msg.bot .chat-bubble');
+    const last = msgs[msgs.length - 1];
+    if (last) last.innerHTML =
+        `✅ *Booking request sent!*<br><br>` +
+        `We've received your details and will confirm your slot with <strong>${savedEmail}</strong> or <strong>${savedPhone}</strong> within 24 hours. 🎉`;
 }
 // ────────────────────────────────────────────────────────────────────────────
 
