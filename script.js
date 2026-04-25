@@ -80,11 +80,6 @@ function showSlotForm() {
         <div class="chat-bubble chat-form-bubble">
             <div class="slot-form">
                 <p class="slot-intro">Perfect! 📱 Please pick your <strong>3 preferred time slots</strong>:</p>
-                <div class="slot-pricing">
-                    <div class="slot-pricing-row">📌 <strong>Deposit:</strong> SGD $20 <span class="slot-pricing-note">(non-refundable)</span></div>
-                    <div class="slot-pricing-row">⏱️ <strong>Rate:</strong> SGD $2 / hour</div>
-                </div>
-                <div class="slot-divider"></div>
                 <div class="slot-row">
                     <label>Slot 1 <span class="slot-req">*</span></label>
                     <input type="datetime-local" class="slot-input" id="slot-1">
@@ -96,6 +91,11 @@ function showSlotForm() {
                 <div class="slot-row">
                     <label>Slot 3 <span class="slot-opt">(optional)</span></label>
                     <input type="datetime-local" class="slot-input" id="slot-3">
+                </div>
+                <div class="slot-divider"></div>
+                <div class="slot-pricing">
+                    <div class="slot-pricing-row">📌 <strong>Deposit:</strong> SGD $20 <span class="slot-pricing-note">(non-refundable)</span></div>
+                    <div class="slot-pricing-row">⏱️ <strong>Rate:</strong> SGD $2 / hour</div>
                 </div>
                 <button class="slot-submit-btn" onclick="submitBooking()">
                     <i class="fas fa-paper-plane"></i> Submit Booking
@@ -138,21 +138,23 @@ function submitBooking() {
     bookingState = null;
     bookingData  = {};
 
-    // Open Telegram with pre-filled message (use anchor to avoid pop-up blocker)
-    const tgLink = document.createElement('a');
-    tgLink.href = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
-    tgLink.target = '_blank';
-    tgLink.rel = 'noopener';
-    document.body.appendChild(tgLink);
-    tgLink.click();
-    document.body.removeChild(tgLink);
-
     addMessage(
-        `📲 Telegram is opening with your booking details pre-filled.<br><br>` +
+        `📲 Telegram will open in a moment with your booking details pre-filled.<br><br>` +
         `Just hit <strong>Send</strong> in Telegram to submit your request!<br><br>` +
         `We'll confirm your slot with <strong>${savedEmail}</strong> within 24 hours. 🎉`,
         'bot'
     );
+
+    // Wait 3 seconds so user can read the instruction, then open Telegram
+    setTimeout(() => {
+        const tgLink = document.createElement('a');
+        tgLink.href = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
+        tgLink.target = '_blank';
+        tgLink.rel = 'noopener';
+        document.body.appendChild(tgLink);
+        tgLink.click();
+        document.body.removeChild(tgLink);
+    }, 3000);
 }
 // ────────────────────────────────────────────────────────────────────────────
 
