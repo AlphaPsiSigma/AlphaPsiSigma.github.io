@@ -68,7 +68,7 @@ function handleBookingFlow(text) {
         bookingData.phone = text;
         bookingState = 'slots';
         setTimeout(showSlotForm, 400);
-        return `Perfect! 📱<br><br>Please pick your <strong>3 preferred time slots</strong> below:`;
+        return null;
     }
     return null;
 }
@@ -79,6 +79,7 @@ function showSlotForm() {
     wrap.innerHTML = `
         <div class="chat-bubble chat-form-bubble">
             <div class="slot-form">
+                <p class="slot-intro">Perfect! 📱 Please pick your <strong>3 preferred time slots</strong>:</p>
                 <div class="slot-pricing">
                     <div class="slot-pricing-row">📌 <strong>Deposit:</strong> SGD $20 <span class="slot-pricing-note">(non-refundable)</span></div>
                     <div class="slot-pricing-row">⏱️ <strong>Rate:</strong> SGD $2 / hour</div>
