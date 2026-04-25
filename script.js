@@ -145,23 +145,31 @@ function submitBooking() {
     bookingState = null;
     bookingData  = {};
 
-    addMessage(
-        `📲 Telegram will open in a moment with your booking details pre-filled.<br><br>` +
+    const msgEl = addMessage(
+        `📲 Telegram opening in <strong><span id="tg-countdown">3</span></strong>s with your booking details pre-filled.<br><br>` +
         `Just hit <strong>Send</strong> in Telegram to submit your request!<br><br>` +
         `We'll confirm your slot with <strong>${savedEmail}</strong> within 24 hours. 🎉`,
         'bot'
     );
 
-    // Wait 3 seconds so user can read the instruction, then open Telegram
-    setTimeout(() => {
-        const tgLink = document.createElement('a');
-        tgLink.href = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
-        tgLink.target = '_blank';
-        tgLink.rel = 'noopener';
-        document.body.appendChild(tgLink);
-        tgLink.click();
-        document.body.removeChild(tgLink);
-    }, 3000);
+    // Countdown 3 → 2 → 1, then open Telegram
+    let count = 3;
+    const countdownEl = document.getElementById('tg-countdown');
+    const interval = setInterval(() => {
+        count--;
+        if (countdownEl) countdownEl.textContent = count;
+        if (count <= 0) {
+            clearInterval(interval);
+            const tgLink = document.createElement('a');
+            tgLink.href = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
+            tgLink.target = '_blank';
+            tgLink.rel = 'noopener';
+            document.body.appendChild(tgLink);
+            tgLink.click();
+            document.body.removeChild(tgLink);
+            if (countdownEl) countdownEl.closest('.chat-bubble').querySelector('#tg-countdown').textContent = '🚀';
+        }
+    }, 1000);
 }
 // ────────────────────────────────────────────────────────────────────────────
 
