@@ -48,6 +48,13 @@ let bookingData  = {};
 function startBooking() {
     bookingState = 'name';
     bookingData  = {};
+    setTimeout(() => {
+        addMessage(
+            `Before we proceed, you may want to review our pricing. 💰<br><br>` +
+            `<button onclick="openPricing()" class="chat-pricing-link">📋 View Pricing Info</button>`,
+            'bot'
+        );
+    }, 900);
     return "Sure! Let's book a consultation. 📅<br><br>First, what's your <strong>full name</strong>?";
 }
 
@@ -263,6 +270,20 @@ document.getElementById('book-slot-cta').addEventListener('click', () => {
         chatInput.focus();
     }, 300);
 });
+
+// ── PRICING INFO MODAL ───────────────────────────────────────────────────────
+const pricingModal  = document.getElementById('pricing-modal');
+const pricingOpen   = document.getElementById('pricing-open');
+const pricingClose  = document.getElementById('pricing-close');
+const pricingAccept = document.getElementById('pricing-accept');
+
+function openPricing()  { pricingModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closePricing() { pricingModal.classList.remove('active'); document.body.style.overflow = ''; }
+
+if (pricingOpen)   pricingOpen.addEventListener('click', openPricing);
+if (pricingClose)  pricingClose.addEventListener('click', closePricing);
+if (pricingAccept) pricingAccept.addEventListener('click', closePricing);
+if (pricingModal)  pricingModal.addEventListener('click', (e) => { if (e.target === pricingModal) closePricing(); });
 
 // ── TERMS OF SERVICE MODAL ───────────────────────────────────────────────────
 const tosModal   = document.getElementById('tos-modal');

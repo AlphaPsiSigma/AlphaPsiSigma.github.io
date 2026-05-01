@@ -159,10 +159,17 @@ nav ul a:not(.btn-primary):hover::after { width: 100%; }
     display: flex;
     align-items: center;
     padding: 3rem 5%;
-    background: linear-gradient(135deg, #edfae4, #fffde7, #e8f5ff, #fff3e0);
-    background-size: 300% 300%;
-    animation: gradientShift 10s ease infinite;
     position: relative;
+    background:
+        linear-gradient(135deg,
+            rgba(237,250,228,0.82),
+            rgba(255,253,231,0.78),
+            rgba(232,245,255,0.80),
+            rgba(255,243,224,0.82)
+        ),
+        url('img/sg.jpg') center center / cover no-repeat;
+    background-size: 300% 300%, cover;
+    animation: gradientShift 10s ease infinite;
 }
 
 /* FLOATING BACKGROUND ORBS */
@@ -619,7 +626,17 @@ p { color: var(--text-charcoal); font-size: 1.2rem; }
 }
 
 /* FOOTER */
-footer { text-align: center; padding: 50px 5%; background: linear-gradient(135deg, #2c3e1f, #4e7837); color: white; }
+footer {
+    text-align: center;
+    padding: 50px 5%;
+    background:
+        linear-gradient(135deg,
+            rgba(44, 62, 31, 0.88),
+            rgba(78, 120, 55, 0.85)
+        ),
+        url('img/sg.jpg') center center / cover no-repeat;
+    color: white;
+}
 footer .logo { color: white; margin-bottom: 1rem; display: block; }
 footer p { color: rgba(255,255,255,0.8); }
 
@@ -662,14 +679,14 @@ footer p { color: rgba(255,255,255,0.8); }
 .tos-link {
     background: none;
     border: none;
-    color: rgba(255,255,255,0.5);
+    color: rgba(0,0,0,0.5);
     font-size: 1rem;
     cursor: pointer;
     text-decoration: underline;
     font-family: 'Nunito', sans-serif;
     transition: color 0.2s ease;
 }
-.tos-link:hover { color: rgba(255,255,255,0.95); }
+.tos-link:hover { color: rgba(5,5,5,0.95); }
 
 /* TERMS OF SERVICE MODAL */
 .tos-overlay {
@@ -939,6 +956,23 @@ footer p { color: rgba(255,255,255,0.8); }
 .slot-form { display: flex; flex-direction: column; gap: 0.55rem; }
 
 .slot-intro { font-size: 0.85rem; margin: 0 0 0.3rem 0; }
+
+.chat-pricing-link {
+    display: inline-block;
+    margin-top: 0.3rem;
+    padding: 0.4rem 1rem;
+    background: linear-gradient(135deg, #64a243, #3a7a20);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(100,162,67,0.3);
+    transition: transform 0.15s ease, filter 0.15s ease;
+    font-family: inherit;
+}
+.chat-pricing-link:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
 .email-fallback-btns {
     display: flex;

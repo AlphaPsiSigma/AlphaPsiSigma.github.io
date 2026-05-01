@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpha Psi Sigma | Education Consultancy</title>
-    <link rel="stylesheet" href="style.css?v=11">
+    <link rel="stylesheet" href="style.css?v=14">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <nav id="navbar">
             <div class="logo">
                 <span class="logo-text">Alpha Psi <span class="logo-accent">Sigma</span></span>
-                <img src="logo.jpeg" alt="Alpha Psi Sigma" class="logo-img">
+                <img src="img/logo.jpeg" alt="Alpha Psi Sigma" class="logo-img">
             </div>
             <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -122,11 +122,11 @@
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-item">
-                <div class="stat-number"><span class="stat-num" data-target="100">0</span>+</div>
+                <div class="stat-number"><span class="stat-num" data-target="1000">0</span>+</div>
                 <p>Students Helped</p>
             </div>
             <div class="stat-item">
-                <div class="stat-number"><span class="stat-num" data-target="5">0</span>+</div>
+                <div class="stat-number"><span class="stat-num" data-target="10">0</span>+</div>
                 <p>Years Experience</p>
             </div>
             <div class="stat-item">
@@ -134,7 +134,7 @@
                 <p>Countries Served</p>
             </div>
             <div class="stat-item">
-                <div class="stat-number"><span class="stat-num" data-target="95">0</span>%</div>
+                <div class="stat-number"><span class="stat-num" data-target="98">0</span>%</div>
                 <p>Success Rate</p>
             </div>
         </div>
@@ -204,21 +204,21 @@
             <h2>Built with Hearts by</h2>
             <div class="team-grid">
                 <div class="team-card">
-                    <img src="Jimmy.jpg" alt="Jimmy Zhong" class="member-photo">
+                    <img src="img/Jimmy.jpg" alt="Jimmy Zhong" class="member-photo">
                     <div class="member-info">
                         <h3>Dr. Jimmy Y. ZHONG (Dr. JZ)</h3>
-                        <p class="credentials">Founding Director</p>
+                        <p class="credentials">CEO</p>
                         <p class="bio">Cognitive Neuroscientist &amp; Psychologist. PhD (Highest Distinction), Georgia Tech. Bridging neuroscience, psychology, and AI to empower families.</p>
                         <button class="bio-read-more" data-target="jimmy-bio-modal">Read More</button>
                     </div>
                 </div>
 
                 <div class="team-card">
-                    <img src="skgoh.jpeg" alt="Sim Kuan Goh" class="member-photo">
+                    <img src="img/skgoh.jpeg" alt="Sim Kuan Goh" class="member-photo">
                     <div class="member-info">
                         <h3>Dr. Sim Kuan GOH (Dr. SK)</h3>
-                        <p class="credentials">Founding Director</p>
-                        <p class="bio">AI &amp; Brain Science researcher, IEEE Senior Member, and Assistant Professor — making cutting-edge science accessible to every child.</p>
+                        <p class="credentials">CTO</p>
+                        <p class="bio">AI &amp; Brain Science Researcher, Engineer, and Assistant Professor, making cutting-edge science and education accessible to every child.</p>
                         <button class="bio-read-more" data-target="skgoh-bio-modal">Read More</button>
                     </div>
                 </div>
@@ -226,28 +226,87 @@
             </div>
             <div class="team-cta">
                 <p>Ready to unlock your child's potential? Let's talk.</p>
+                <p class="tos-trigger-wrap"><button class="tos-link" id="pricing-open">💰 Pricing Info</button></p>
                 <button class="btn-primary" id="book-slot-cta">Book a Slot</button>
+                <p class="tos-trigger-wrap"><button class="tos-link" id="tos-open">Terms of Service</button></p>
             </div>
+
+
         </div>
     </section>
 
     <footer id="contact">
         <div class="footer-content">
+
+            <div class="footer-join">
+                <p class="footer-join-text">🌟 Do you want to work with us?</p>
+                <a class="btn-footer-join" id="join-us-btn"
+                   href="#" target="_blank" rel="noopener">Join Us</a>
+            </div>
             <div class="logo footer-logo">
-                <!-- <img src="logo.jpeg" alt="Alpha Psi Sigma" class="logo-img logo-img-footer"><br> -->
+                <!-- <img src="img/logo.jpeg" alt="Alpha Psi Sigma" class="logo-img logo-img-footer"><br> -->
                 <span class="logo-text logo-text-footer">Alpha Psi <span class="logo-accent-footer">Sigma</span></span>
             </div>
             <p>Based in Singapore and Malaysia. Serving the future.</p>
 
-            <div class="footer-join">
-                <p class="footer-join-text">🌟 Join us and make an impact!</p>
-                <a class="btn-footer-join" id="join-us-btn"
-                   href="#" target="_blank" rel="noopener">Join Us</a>
-            </div>
+            
 
-            <p class="tos-trigger-wrap"><button class="tos-link" id="tos-open">Terms of Service</button></p>
+            
         </div>
     </footer>
+
+    <!-- Pricing Info Modal -->
+    <div id="pricing-modal" class="tos-overlay" role="dialog" aria-modal="true" aria-labelledby="pricing-title">
+        <div class="tos-box">
+            <div class="tos-header">
+                <h2 id="pricing-title">💰 Pricing Info &amp; FAQ</h2>
+                <button class="tos-close" id="pricing-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="tos-body">
+                <p class="tos-subtitle">Alpha Psi Sigma Online Educational Consultation Services</p>
+
+                <h3>What do we do?</h3>
+                <p>At Alpha Psi Sigma, we are a team of professional educators providing busy parents with the practical tools and mindset to manage and discipline their child(ren) for real-world success. Our services are targeted at parents who are especially concerned about their child(ren) underperforming and failing in school and who are clueless about remedial approaches. We are here to teach such parents about the best solutions and the road forward for them and for their child(ren).</p>
+
+                <h3>How much do we charge?</h3>
+                <p><strong>For Singapore- and Malaysia-born parents residing in Singapore or Malaysia:</strong></p>
+                <p>Online consultation rate: <strong>SG $2 per minute</strong><br>
+                Surcharge for more than one child: <strong>SG $60</strong><br>
+                Advance GST booking charge (per session): <strong>SG $20</strong><br>
+                Hourly rate (1 child): <strong>SG $140</strong><br>
+                Hourly rate (2+ children): <strong>SG $200</strong></p>
+
+                <p><strong>For parents born outside Singapore and Malaysia (residing anywhere):</strong></p>
+                <p>Online consultation rate: <strong>US $3 per minute</strong><br>
+                Surcharge for more than one child: <strong>US $60</strong><br>
+                Advance GST booking charge (per session): <strong>US $20</strong><br>
+                Hourly rate (1 child): <strong>US $200</strong><br>
+                Hourly rate (2+ children): <strong>US $260</strong></p>
+
+                <p><strong>Offline intelligence gathering &amp; research services:</strong></p>
+                <p>SG/MY-born parents residing in SG/MY: <strong>SG $1 per minute per child</strong><br>
+                All other parents: <strong>US $1 per minute per child</strong></p>
+
+                <h3>How do I pay?</h3>
+                <p><strong>Parents residing in Singapore:</strong> DBS PayLah or PayNow (directed to your consultant).<br>
+                <strong>Parents residing outside Singapore (including Malaysia):</strong> PayPal (directed to your consultant). If you do not have a PayPal account, you can easily establish one for online transactions.</p>
+
+                <h3>Why is the pricing set at this level?</h3>
+                <p>Our pricing is pegged to the hourly wage of an adjunct university lecturer/professor in Singapore and is non-expensive. Our prices are below the median market rate for compensating full-time university lecturers/professors in Singapore, and are also cheaper than what other consultancies will offer you.</p>
+
+                <h3>Are there discounts available?</h3>
+                <p>Yes — loyal customers who have consulted us at least three times are eligible for discounts. The discount amount is negotiable between the loyal customer and the consultant and will be decided on a case-by-case basis.</p>
+
+                <h3>How do I book a slot?</h3>
+                <p>Click on <strong>"Book a Slot"</strong> on our website. Send us a message with your request and any additional queries and we will get back to you through messaging services (e.g., WhatsApp, SMS) on your phone.</p>
+
+                <p class="tos-footer-note">All pricing is subject to change. Continued use of our services constitutes acceptance of current rates.</p>
+            </div>
+            <div class="tos-footer">
+                <button class="btn-primary" id="pricing-accept">Got It</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Terms of Service Modal -->
     <div id="tos-modal" class="tos-overlay" role="dialog" aria-modal="true" aria-labelledby="tos-title">
@@ -266,7 +325,7 @@
                 <p>1.3 Any session cancelled under Clause 1.2 shall be deemed forfeited by the Client, and no refund or rescheduling shall be provided.</p>
 
                 <h3>2. Advance Payment and Booking Confirmation</h3>
-                <p>2.1 The Client shall remit a non-refundable advance payment in the amount of twenty Singapore dollars (SGD $20) as a condition precedent to the confirmation of any consultation session.</p>
+                <p>2.1 The Client shall remit a non-refundable advance payment in the amount of twenty dollars (SG $20 for Singapore- and Malaysia-born parents residing in Singapore or Malaysia; US $20 for non-Singapore- and non-Malaysia-born parents residing in Singapore, Malaysia, or any other country) as a condition precedent to the confirmation of any consultation session. This sum of money is used to cover the online goods and services charge, and to compensate the Consultant for the effort he/she invested in online correspondence.</p>
                 <p>2.2 No consultation session shall be deemed confirmed or reserved until such advance payment has been received in full by the Consultant.</p>
                 <p>2.3 The advance payment is strictly non-refundable under all circumstances, including but not limited to cancellation, non-attendance, or termination of services.</p>
 
@@ -311,15 +370,23 @@
             </div>
             <div class="tos-body">
                 <div class="bio-modal-top">
-                    <img src="Jimmy.jpg" alt="Dr. Jimmy Zhong" class="bio-modal-photo">
+                    <img src="img/Jimmy.jpg" alt="Dr. Jimmy Zhong" class="bio-modal-photo">
                     <div>
                         <p class="credentials" style="margin:0 0 0.3rem;">Founding Director</p>
                         <p style="margin:0; font-size:0.85rem; color:#888;">Cognitive Neuroscientist &amp; Psychologist</p>
                     </div>
                 </div>
-                <p>Dr. Jimmy Y. Zhong is a distinguished Cognitive Neuroscientist and Psychologist whose work sits at the intersection of science, education, and innovation. He obtained his PhD in Cognitive Neuroscience, Cognitive Aging, and Quantitative Psychology (Highest Distinction) from Georgia Institute of Technology, Atlanta, GA, USA, in 2019. Prior to that, he earned both his Bachelor's and Master's degrees from the National University of Singapore (NUS), Singapore. He graduated as a top scholar at both institutions.</p>
-                <p>Academically, Dr. JZ has broad and interdisciplinary interests, spanning across Spatial Cognition and Navigation, Cognitive Aging, the Neuroscience of Consciousness, Applied Psychology, and Artificial Intelligence (AI).</p>
-                <p>As the Founder of Alpha Psi Sigma, Dr. Zhong is channeling his extensive academic expertise and professional experience into initiatives aimed at benefiting parents and their children. By integrating insights from neuroscience, psychology, and AI, he is developing educational strategies and paradigms that promote critical thinking, cognitive development, and experiential learning. His vision is to empower families with the tools and knowledge needed to thrive in an increasingly complex and AI-driven world.</p>
+                
+
+                <p>Dr. Jimmy Y. Zhong (Dr. JZ) is a distinguished Cognitive Neuroscientist, Psychologist, and Master-level Chess Player whose work sits at the intersection of science, education, and digital transformation. He obtained his PhD in Cognitive Neuroscience, Cognitive Aging, and Quantitative Psychology (Highest Distinction) from the prestigious Georgia Institute of Technology (Georgia Tech), Atlanta, GA, USA. Prior to that, he earned both his Bachelor’s and Master’s degrees from the National University of Singapore (NUS), Singapore. He graduated as a top scholar at both institutions.</p>
+
+
+                <p>To date (2026), he has 15 years of academic research and teaching experience under his belt. Right now, he works as a self-employed practicing psychologist and professional chess coach providing psychological aid and advanced chess training to both children and adults.</p>
+
+                <p>As the Founder of Alpha Psi Sigma, Dr. JZ is channeling his extensive academic expertise and professional experience into initiatives aimed at benefiting parents and their children. By integrating insights from AI, chess, neuroscience, and psychology, he is developing educational strategies and paradigms that promote critical thinking, cognitive development, and experiential learning. His vision is to empower families with the tools and knowledge needed to thrive in an increasingly complex and AI-driven world.</p>
+
+
+
                 <div class="bio-links">
                     <a href="https://scholar.google.com/citations?user=vIK66iQAAAAJ&hl=en" target="_blank" rel="noopener" class="bio-link">
                         <i class="fas fa-graduation-cap"></i> Google Scholar
@@ -344,16 +411,13 @@
             </div>
             <div class="tos-body">
                 <div class="bio-modal-top">
-                    <img src="skgoh.jpeg" alt="Sim Kuan Goh" class="bio-modal-photo">
+                    <img src="img/skgoh.jpeg" alt="Sim Kuan Goh" class="bio-modal-photo">
                     <div>
                         <p class="credentials" style="margin:0 0 0.3rem;">Founding Director</p>
                         <p style="margin:0; font-size:0.85rem; color:#888;">AI &amp; Brain Science Researcher · IEEE Senior Member</p>
                     </div>
                 </div>
-                <p>What happens when you put a world-class AI researcher and a brain scientist in the same room? You get Sim Kuan Goh — and frankly, the future of education looks a lot more exciting because of it.</p>
-                <p>Sim Kuan holds a B.Eng. and PhD from the National University of Singapore (NUS), and is currently an Assistant Professor at Xiamen University Malaysia. His research sits at the electrifying crossroads of Artificial Intelligence and Brain Science — exploring how machines can learn from the mind, and how the mind can be better understood through machines.</p>
-                <p>An IEEE Senior Member, Sim Kuan has presented and published his work at some of the most prestigious venues in the world, including NeurIPS, ACL, and EMNLP — conferences where the brightest minds in AI gather to shape the direction of the field. In short, he is not just following where technology is going; he is helping decide.</p>
-                <p>At Alpha Psi Sigma, Sim Kuan brings this deep technical expertise to a mission that is deeply human: helping children learn better, think sharper, and grow with confidence in an AI-driven world.</p>
+                <p>What happens when you bring together years of teaching experience and cutting-edge AI development? You get Sim Kuan Goh and a vision for education that is both innovative and deeply student-centered.</p> <p>Sim Kuan holds a B.Eng. and PhD from the National University of Singapore (NUS), and is currently an Assistant Professor at Xiamen University Malaysia. With many years of experience in teaching and mentoring students, he is deeply committed to pedagogy, designing learning experiences that make complex ideas accessible, engaging, and relevant for students from diverse backgrounds.</p> <p>Beyond the classroom, he has played an active role in leading and supporting student communities, including guiding AI-focused student clubs and initiatives. Through these efforts, he fosters a collaborative environment where students can explore ideas, build projects, and grow both technically and personally.</p> <p>His work also extends into building real-world AI systems and applications, from intelligent platforms to hands-on student projects. He emphasizes learning by doing, encouraging students to experiment, create, and think critically about how AI can solve meaningful problems.</p> <p>At Alpha Psi Sigma, Sim Kuan brings together his strengths in teaching, leadership, and AI development to support a mission that is ultimately about people: helping children learn effectively, build confidence, and develop the skills they need to thrive in an AI-driven world.</p>
                 <div class="bio-links">
                     <a href="https://scholar.google.com/citations?user=bWcSCDwAAAAJ&hl=en" target="_blank" rel="noopener" class="bio-link">
                         <i class="fas fa-graduation-cap"></i> Google Scholar
@@ -407,6 +471,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=22"></script>
+    <script src="script.js?v=24"></script>
 </body>
 </html>
