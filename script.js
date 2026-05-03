@@ -42,11 +42,13 @@ function removeTyping() {
 }
 
 // ── BOOKING FLOW STATE MACHINE ───────────────────────────────────────────────
-let bookingState = null; // null | 'name' | 'email' | 'phone' | 'slots'
+// States: null | 'parent_name' | 'children_names' | 'country_birth' |
+//         'country_residence' | 'age' | 'profession' | 'phone' | 'email' | 'slots'
+let bookingState = null;
 let bookingData  = {};
 
 function startBooking() {
-    bookingState = 'name';
+    bookingState = 'parent_name';
     bookingData  = {};
     setTimeout(() => {
         addMessage(
@@ -55,24 +57,55 @@ function startBooking() {
             'bot'
         );
     }, 900);
-    return "Sure! Let's book a consultation. 📅<br><br>First, what's your <strong>full name</strong>?";
+    return "Sure! Let's book a consultation. 📅<br><br>" +
+           "Please provide the <strong>NRIC/Passport name of the parent</strong> requesting the consultation and making payment.";
 }
 
 function handleBookingFlow(text) {
-    if (bookingState === 'name') {
-        bookingData.name = text;
-        bookingState = 'email';
-        return `Nice to meet you, <strong>${text}</strong>! 😊<br><br>What's your <strong>email address</strong>?`;
+    if (bookingState === 'parent_name') {
+        bookingData.parentName = text;
+        bookingState = 'children_names';
+        return `Thank you, <strong>${text}</strong>! 😊<br><br>` +
+               `Please provide the <strong>NRIC/Passport name(s) of your child(ren)</strong> requiring assistance.<br>` +
+               `<small>For multiple children, separate names with a comma.</small>`;
     }
-    if (bookingState === 'email') {
-        if (!/\S+@\S+\.\S+/.test(text))
-            return "That doesn't look like a valid email. Could you check it again? 🤔";
-        bookingData.email = text;
+    if (bookingState === 'children_names') {
+        bookingData.childrenNames = text;
+        bookingState = 'country_birth';
+        return `Got it! 👶<br><br>What is the <strong>country of birth</strong> of the parent?`;
+    }
+    if (bookingState === 'country_birth') {
+        bookingData.countryBirth = text;
+        bookingState = 'country_residence';
+        return `Thanks! 🌏<br><br>What is the parent's <strong>country of current residence</strong>?`;
+    }
+    if (bookingState === 'country_residence') {
+        bookingData.countryResidence = text;
+        bookingState = 'age';
+        return `Noted! 🏠<br><br>What is the <strong>age of the parent</strong>?`;
+    }
+    if (bookingState === 'age') {
+        if (!/^\d+$/.test(text.trim()) || +text < 18 || +text > 100)
+            return `Please enter a valid age (numbers only, between 18–100). 🤔`;
+        bookingData.age = text.trim();
+        bookingState = 'profession';
+        return `Thank you! 💼<br><br>What is the parent's <strong>profession</strong>?`;
+    }
+    if (bookingState === 'profession') {
+        bookingData.profession = text;
         bookingState = 'phone';
-        return `Got it! 📧<br><br>What's your <strong>phone number</strong>? (include country code if outside Singapore)`;
+        return `Great! 📱<br><br>What is the parent's <strong>mobile contact number</strong>?<br>` +
+               `<small>Please include the country code, e.g. +65 9123 4567</small>`;
     }
     if (bookingState === 'phone') {
         bookingData.phone = text;
+        bookingState = 'email';
+        return `Perfect! 📧<br><br>What is the parent's <strong>active email address</strong>?`;
+    }
+    if (bookingState === 'email') {
+        if (!/\S+@\S+\.\S+/.test(text))
+            return `That doesn't look like a valid email. Could you check it again? 🤔`;
+        bookingData.email = text;
         bookingState = 'slots';
         setTimeout(showSlotForm, 400);
         return null;
@@ -86,7 +119,7 @@ function showSlotForm() {
     wrap.innerHTML = `
         <div class="chat-bubble chat-form-bubble">
             <div class="slot-form">
-                <p class="slot-intro">Perfect! 📱 Please pick your <strong>3 preferred time slots</strong>:</p>
+                <p class="slot-intro">📱 Please pick your <strong>3 preferred time slots</strong>:</p>
                 <div class="slot-row">
                     <label for="slot-1">Slot 1 <span class="slot-req">*</span></label>
                     <input type="datetime-local" class="slot-input" id="slot-1">
@@ -98,6 +131,12 @@ function showSlotForm() {
                 <div class="slot-row">
                     <label for="slot-3">Slot 3 <span class="slot-opt">(optional)</span></label>
                     <input type="datetime-local" class="slot-input" id="slot-3">
+                </div>
+                <div class="slot-divider"></div>
+                <div class="slot-row">
+                    <label for="slot-notes">Notes <span class="slot-opt">(optional)</span></label>
+                    <textarea id="slot-notes" class="slot-input slot-notes" rows="3"
+                        placeholder="Any additional notes, concerns, or questions..."></textarea>
                 </div>
                 <div class="slot-divider"></div>
                 <div class="slot-pricing">
@@ -114,9 +153,10 @@ function showSlotForm() {
 }
 
 function submitBooking() {
-    const s1 = document.getElementById('slot-1').value;
-    const s2 = document.getElementById('slot-2').value;
-    const s3 = document.getElementById('slot-3').value;
+    const s1    = document.getElementById('slot-1').value;
+    const s2    = document.getElementById('slot-2').value;
+    const s3    = document.getElementById('slot-3').value;
+    const notes = (document.getElementById('slot-notes').value || '').trim();
 
     if (!s1 || !s2) {
         addMessage("Please fill in at least the first 2 preferred slots before submitting. 🙏", 'bot');
@@ -127,57 +167,69 @@ function submitBooking() {
         ? new Date(v).toLocaleString('en-SG', { weekday:'short', year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })
         : 'Not provided';
 
-    const savedName  = bookingData.name;
-    const savedEmail = bookingData.email;
-    const savedPhone = bookingData.phone;
+    const { parentName, childrenNames, countryBirth, countryResidence, age, profession, phone, email } = bookingData;
 
     const tgText =
-        `📅 New Booking Request\n` +
-        `━━━━━━━━━━━━━━━━━━━━\n` +
-        `Thank you for booking a consultation with Alpha Psi Sigma!\n` +
-        `We will be in touch with you shortly to confirm your slot.\n\n` +
-        `👤 Name:   ${savedName}\n` +
-        `📧 Email:  ${savedEmail}\n` +
-        `📱 Phone:  ${savedPhone}\n\n` +
+        `📅 New Booking Request — Alpha Psi Sigma\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+        `👤 Parent Name:        ${parentName}\n` +
+        `👶 Child(ren) Name(s): ${childrenNames}\n` +
+        `🌍 Country of Birth:   ${countryBirth}\n` +
+        `🏠 Country of Residence: ${countryResidence}\n` +
+        `🎂 Age of Parent:      ${age}\n` +
+        `💼 Profession:         ${profession}\n` +
+        `📱 Mobile Contact:     ${phone}\n` +
+        `📧 Email:              ${email}\n\n` +
         `🕐 Preferred Slots:\n` +
         `  1️⃣  ${fmt(s1)}\n` +
         `  2️⃣  ${fmt(s2)}\n` +
         `  3️⃣  ${s3 ? fmt(s3) : '—'}\n\n` +
+        `📝 Notes: ${notes || '—'}\n\n` +
         `💰 Pricing Acknowledged:\n` +
         `  • Deposit: SGD $20 (non-refundable)\n` +
         `  • Rate: SGD $2 / hour\n\n` +
-        `━━━━━━━━━━━━━━━━━━━━\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
         `Submitted via alphapsisigma.github.io`;
 
     bookingState = null;
     bookingData  = {};
 
-    const emailSubject = encodeURIComponent(`[New Booking Request with Alpha Psi Sigma!] ${savedName}`);
+    const emailSubject = encodeURIComponent(`[New Booking Request with Alpha Psi Sigma!] ${parentName}`);
     const emailBody = encodeURIComponent(
-        `📅 New Booking Request with Alpha Psi Sigma!\n` +
-        `────────────────────────────────────\n` +
-        `Thank you for booking a consultation with Alpha Psi Sigma!\n` +
-        `We will be in touch with you shortly to confirm your slot.\n\n` +
-        `👤 Name:   ${savedName}\n` +
-        `📧 Email:  ${savedEmail}\n` +
-        `📱 Phone:  ${savedPhone}\n\n` +
+        `📅 New Booking Request — Alpha Psi Sigma\n` +
+        `────────────────────────────────────────\n\n` +
+        `👤 Parent Name:          ${parentName}\n` +
+        `👶 Child(ren) Name(s):   ${childrenNames}\n` +
+        `🌍 Country of Birth:     ${countryBirth}\n` +
+        `🏠 Country of Residence: ${countryResidence}\n` +
+        `🎂 Age of Parent:        ${age}\n` +
+        `💼 Profession:           ${profession}\n` +
+        `📱 Mobile Contact:       ${phone}\n` +
+        `📧 Email:                ${email}\n\n` +
         `🕐 Preferred Slots:\n` +
-        `  1️⃣  ${fmt(s1)}\n` +
-        `  2️⃣  ${fmt(s2)}\n` +
-        `  3️⃣  ${s3 ? fmt(s3) : '—'}\n\n` +
+        `  1. ${fmt(s1)}\n` +
+        `  2. ${fmt(s2)}\n` +
+        `  3. ${s3 ? fmt(s3) : '—'}\n\n` +
+        `📝 Notes: ${notes || '—'}\n\n` +
         `💰 Pricing Acknowledged:\n` +
         `  • Deposit: SGD $20 (non-refundable)\n` +
         `  • Rate: SGD $2 / hour\n\n` +
-        `────────────────────────────────────\n` +
+        `────────────────────────────────────────\n` +
         `Submitted via alphapsisigma.github.io`
     );
     const mobileBody = encodeURIComponent(
-        `Name: ${savedName}\n` +
-        `Email: ${savedEmail}\n` +
-        `Phone: ${savedPhone}\n\n` +
+        `Parent: ${parentName}\n` +
+        `Child(ren): ${childrenNames}\n` +
+        `Country of Birth: ${countryBirth}\n` +
+        `Country of Residence: ${countryResidence}\n` +
+        `Age: ${age}\n` +
+        `Profession: ${profession}\n` +
+        `Phone: ${phone}\n` +
+        `Email: ${email}\n\n` +
         `Slot 1: ${fmt(s1)}\n` +
         `Slot 2: ${fmt(s2)}\n` +
         `Slot 3: ${s3 ? fmt(s3) : '-'}\n\n` +
+        `Notes: ${notes || '-'}\n\n` +
         `Deposit: SGD $20 | Rate: SGD $2/hr`
     );
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
