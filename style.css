@@ -20,18 +20,13 @@ body {
     font-family: 'Nunito', -apple-system, sans-serif;
     background:
         linear-gradient(to bottom,
-            rgba(13,27,75,0.92)   0%,     /* deep pre-dawn navy */
-            rgba(26,47,110,0.88)  6%,     /* midnight blue */
-            rgba(46,74,143,0.82)  12%,    /* early sky blue */
-            rgba(123,63,140,0.75) 18%,    /* dawn purple */
-            rgba(192,69,107,0.68) 25%,    /* soft magenta pink */
-            rgba(232,112,74,0.62) 34%,    /* coral sunrise */
-            rgba(245,151,58,0.55) 43%,    /* warm amber orange */
-            rgba(247,188,74,0.48) 54%,    /* golden light */
-            rgba(250,217,110,0.38) 65%,   /* soft gold */
-            rgba(253,240,176,0.28) 76%,   /* pale morning yellow */
-            rgba(255,252,240,0.15) 88%,   /* warm white light */
-            rgba(255,255,255,0.0) 100%    /* full daylight — fully transparent */
+            rgba(220,90,0,0.22)   0%,     /* deep burnt orange */
+            rgba(240,120,0,0.18)  15%,    /* rich mango orange */
+            rgba(250,160,0,0.14)  30%,    /* warm amber */
+            rgba(252,190,0,0.10)  48%,    /* golden yellow */
+            rgba(253,215,60,0.07) 65%,    /* sunshine yellow */
+            rgba(254,235,120,0.03) 82%,   /* pale sunny yellow */
+            rgba(255,248,200,0.0) 100%    /* warm white fade */
         );
     background-attachment: fixed;
     color: var(--text-dark);
@@ -60,11 +55,13 @@ nav {
     padding: 1.1rem 5%;
     align-items: center;
     background: linear-gradient(to right,
-        #2c1000 0%,
-        #5a2800 25%,
-        #8b4a00 55%,
-        #a86200 80%,
-        #7a3d00 100%
+        #b84400 0%,    /* deep burnt mango */
+        #d96000 18%,   /* rich mango */
+        #f07d00 36%,   /* mango orange */
+        #f5a000 54%,   /* warm amber */
+        #f8bc00 72%,   /* golden pineapple */
+        #f5c842 88%,   /* soft pineapple gold */
+        #f2d060 100%   /* warm pineapple glow */
     );
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -78,11 +75,13 @@ nav {
 nav.nav-scrolled {
     padding: 0.6rem 5%;
     background: linear-gradient(to right,
-        #1e0b00 0%,
-        #4a2000 25%,
-        #7a3f00 55%,
-        #965700 80%,
-        #6b3500 100%
+        #a03a00 0%,    /* deep burnt mango (scrolled) */
+        #c25500 18%,   /* rich mango */
+        #d97000 36%,   /* mango orange */
+        #e09000 54%,   /* warm amber */
+        #e8aa00 72%,   /* golden pineapple */
+        #e8ba38 88%,   /* soft pineapple gold */
+        #e6c455 100%   /* warm pineapple glow */
     );
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
@@ -168,10 +167,11 @@ a {
 }
 
 nav ul a:not(.btn-primary) {
-    color: rgba(255, 255, 255, 0.92);
+    color: #3b1200;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.25);
 }
 nav ul a:not(.btn-primary):hover {
-    color: var(--accent-yellow);
+    color: #7a2e00;
 }
 
 nav ul a:not(.btn-primary)::after {
