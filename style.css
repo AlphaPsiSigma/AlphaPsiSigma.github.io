@@ -370,6 +370,21 @@ p { color: var(--text-charcoal); font-size: 1.2rem; }
     height: 80px;
 }
 
+/* SECTION SEPARATOR */
+.section-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+    margin: 0;
+    line-height: 0;
+}
+.section-separator svg {
+    display: block;
+    width: 100%;
+    height: 20px;
+}
+
 /* SECTIONS */
 .services, .science-section, .who-section, .team-section {
     padding: 90px 5%;
@@ -585,8 +600,15 @@ p { color: var(--text-charcoal); font-size: 1.2rem; }
     text-align: center;
 }
 
-.bio-read-more {
+.member-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     margin-top: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.bio-read-more {
     background: none;
     border: 2px solid var(--accent-green);
     color: var(--accent-green-dark);
@@ -602,6 +624,58 @@ p { color: var(--text-charcoal); font-size: 1.2rem; }
     background: var(--accent-green);
     color: white;
     transform: scale(1.04);
+}
+
+.member-gmail-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff8c00, #f5c800);
+    color: #3b1200;
+    font-size: 0.82rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    padding: 0.35rem 0.9rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(255,140,0,0.35);
+    white-space: nowrap;
+}
+.member-gmail-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 14px rgba(255,140,0,0.5);
+    color: #3b1200;
+}
+
+/* Contact Us block below team intros */
+.team-contact {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+.team-contact-prompt {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-charcoal);
+    margin-bottom: 0.6rem;
+}
+.btn-contact-us {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #64a243, #3a7a20);
+    color: white;
+    border-radius: 50px;
+    padding: 0.65rem 1.8rem;
+    font-size: 0.98rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 3px 12px rgba(58,122,32,0.35);
+}
+.btn-contact-us:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(58,122,32,0.45);
+    color: white;
 }
 
 .bio-modal-top {
@@ -641,6 +715,8 @@ p { color: var(--text-charcoal); font-size: 1.2rem; }
 }
 .bio-link:hover { background: #d4f0be; }
 .bio-link-disabled { opacity: 0.4; pointer-events: none; }
+.bio-link-gmail { background: #fdecea; color: #c0392b !important; }
+.bio-link-gmail:hover { background: #f9c9c5; }
 
 .member-photo {
     width: 120px;

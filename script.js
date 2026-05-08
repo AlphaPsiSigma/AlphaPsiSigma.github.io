@@ -82,7 +82,11 @@ function handleBookingFlow(text) {
     if (bookingState === 'country_residence') {
         bookingData.countryResidence = text;
         bookingState = 'age';
-        return `Noted! 🏠<br><br>What is the <strong>age of the parent</strong>?`;
+        const isSGorMY = /singapore|malaysia|sg|my\b/i.test(text.trim());
+        const currencyNote = isSGorMY
+            ? ''
+            : `<br><br>💡 <strong>Please note:</strong> As you are residing outside Singapore and Malaysia, our fees will be charged in <strong>USD</strong>.`;
+        return `Noted! 🏠${currencyNote}<br><br>What is the <strong>age of the parent</strong>?`;
     }
     if (bookingState === 'age') {
         if (!/^\d+$/.test(text.trim()) || +text < 18 || +text > 100)
@@ -138,11 +142,6 @@ function showSlotForm() {
                     <textarea id="slot-notes" class="slot-input slot-notes" rows="3"
                         placeholder="Any additional notes, concerns, or questions..."></textarea>
                 </div>
-                <div class="slot-divider"></div>
-                <div class="slot-pricing">
-                    <div class="slot-pricing-row">📌 <strong>Deposit:</strong> SGD $20 <span class="slot-pricing-note">(non-refundable)</span></div>
-                    <div class="slot-pricing-row">⏱️ <strong>Rate:</strong> SGD $2 / hour</div>
-                </div>
                 <button class="slot-submit-btn" onclick="submitBooking()">
                     <i class="fas fa-paper-plane"></i> Submit Booking
                 </button>
@@ -187,7 +186,7 @@ function submitBooking() {
         `📝 Notes: ${notes || '—'}\n\n` +
         `💰 Pricing Acknowledged:\n` +
         `  • Deposit: SGD $20 (non-refundable)\n` +
-        `  • Rate: SGD $2 / hour\n\n` +
+        `  • Rate: SGD $2 / min\n\n` +
         `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
         `Submitted via alphapsisigma.github.io`;
 
@@ -213,7 +212,7 @@ function submitBooking() {
         `📝 Notes: ${notes || '—'}\n\n` +
         `💰 Pricing Acknowledged:\n` +
         `  • Deposit: SGD $20 (non-refundable)\n` +
-        `  • Rate: SGD $2 / hour\n\n` +
+        `  • Rate: SGD $2 / min\n\n` +
         `────────────────────────────────────────\n` +
         `Submitted via alphapsisigma.github.io`
     );
@@ -230,7 +229,7 @@ function submitBooking() {
         `Slot 2: ${fmt(s2)}\n` +
         `Slot 3: ${s3 ? fmt(s3) : '-'}\n\n` +
         `Notes: ${notes || '-'}\n\n` +
-        `Deposit: SGD $20 | Rate: SGD $2/hr`
+        `Deposit: SGD $20 | Rate: SGD $2/min`
     );
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     const gmailUrl = isMobile
@@ -239,10 +238,9 @@ function submitBooking() {
     const tgUrl    = `https://t.me/AlphaPsiSigmaBot?text=${encodeURIComponent(tgText)}`;
 
     addMessage(
-        `✅ Great! How would you like to send your booking request?<br><br>` +
+        `✅ Your booking details are ready! Click below to send your request via Gmail:<br><br>` +
         `<div class="email-fallback-btns">` +
-        `<a href="${gmailUrl}" target="_blank" rel="noopener" class="email-fallback-btn gmail-btn">📧 Gmail</a>` +
-        `<a href="${tgUrl}" target="_blank" rel="noopener" class="email-fallback-btn tg-btn">📲 Telegram</a>` +
+        `<a href="${gmailUrl}" target="_blank" rel="noopener" class="email-fallback-btn gmail-btn">📧 Send via Gmail</a>` +
         `</div>`,
         'bot'
     );
@@ -267,7 +265,7 @@ async function getBotReply(userMessage) {
     if (msg.includes('price') || msg.includes('cost') || msg.includes('fee') || msg.includes('pricing') || msg.includes('rate') || msg.includes('charge') || msg.includes('pay'))
         return "Here's our consultation pricing 💰<br><br>" +
                "📌 <strong>Deposit:</strong> SGD $20 (non-refundable, required to confirm your slot)<br>" +
-               "⏱️ <strong>Rate:</strong> SGD $2 per hour<br><br>" +
+               "⏱️ <strong>Rate:</strong> SGD $2 per min<br><br>" +
                "Type <strong>book</strong> to reserve your slot, or email us at info@alphapsisigma.com for more details!";
     if (msg.includes('contact') || msg.includes('email'))
         return "You can reach us at info@alphapsisigma.com. We'd love to hear from you!";
