@@ -294,6 +294,22 @@ chatInput.addEventListener('keydown', (e) => {
 });
 
 
+// "Contact Us" button — mailto on mobile, Gmail web on desktop
+const contactUsBtn = document.getElementById('contact-us-btn');
+if (contactUsBtn) {
+    const contactSubject = encodeURIComponent('[Question] Interest in Alpha Psi Sigma');
+    const contactBody    = encodeURIComponent(
+        'Hi Alpha Psi Sigma Team,\n\n' +
+        'My queries are as follows:\n\n' +
+        '\n\nThank you!'
+    );
+    const contactTo  = 'jzhong34.gatech.edu@gmail.com,simkuangoh@gmail.com';
+    const isMobC     = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    contactUsBtn.href = isMobC
+        ? `mailto:${contactTo}?subject=${contactSubject}&body=${contactBody}`
+        : `https://mail.google.com/mail/?view=cm&to=${contactTo}&su=${contactSubject}&body=${contactBody}`;
+}
+
 // "Join Us" button — mailto on mobile, Gmail web on desktop
 const joinUsBtn = document.getElementById('join-us-btn');
 if (joinUsBtn) {
