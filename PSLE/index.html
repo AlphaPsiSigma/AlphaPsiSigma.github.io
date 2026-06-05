@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSLE Practice — Alpha Psi Sigma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --math-color: #2563eb;
+            --math-dark:  #1e40af;
+            --math-light: #dbeafe;
+            --eng-color:  #ea580c;
+            --eng-dark:   #9a3412;
+            --eng-light:  #ffedd5;
+            --green:      #3a7a20;
+            --green-dark: #1e4d0a;
+            --green-light:#f0fdf4;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #f5f7ff;
+            min-height: 100vh;
+            color: #1a1a2e;
+        }
+
+        /* ── NAV ── */
+        nav {
+            background: linear-gradient(to right, #b84400, #f07d00, #f8bc00, #f2d060);
+            padding: 0.85rem 5%;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 200;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.22);
+        }
+        .nav-logo { font-family: 'Fredoka One', cursive; font-size: 1.35rem; color: #fff; text-decoration: none; }
+        .nav-logo span { color: #3b1200; }
+        .nav-back {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: #3b1200; font-weight: 800; font-size: 0.88rem; text-decoration: none;
+            background: rgba(255,255,255,0.38); border-radius: 50px; padding: 0.38rem 1rem;
+            transition: background 0.2s;
+        }
+        .nav-back:hover { background: rgba(255,255,255,0.6); }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 70%, #1e3a5f 100%);
+            padding: 3.5rem 5% 2.5rem;
+            text-align: center;
+        }
+        .hero-orb {
+            position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.35; pointer-events: none;
+        }
+        .orb1 { width: 300px; height: 300px; background: #6366f1; top: -80px; left: -60px; }
+        .orb2 { width: 250px; height: 250px; background: #f59e0b; top: -40px; right: -40px; }
+        .orb3 { width: 200px; height: 200px; background: #10b981; bottom: -60px; left: 40%; }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.2);
+            color: #e0e7ff; border-radius: 50px; padding: 0.35rem 1rem;
+            font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+            margin-bottom: 1rem; backdrop-filter: blur(8px);
+        }
+        .hero h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            line-height: 1.1; margin-bottom: 0.7rem;
+            background: linear-gradient(135deg, #ffffff 0%, #fbbf24 50%, #f97316 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero p { font-size: 1rem; color: #c7d2fe; max-width: 500px; margin: 0 auto 2rem; line-height: 1.6; }
+
+        /* ── DASHBOARD ── */
+        .dashboard {
+            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+            margin-bottom: 1.8rem; position: relative; z-index: 2;
+        }
+        .dash-card {
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255,255,255,0.18); border-radius: 16px;
+            padding: 0.9rem 1.4rem; text-align: center; min-width: 90px;
+        }
+        .dash-num { font-family: 'Fredoka One', cursive; font-size: 2rem; line-height: 1; }
+        .dash-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; margin-top: 0.2rem; }
+        .dash-card.dc-correct { color: #4ade80; }
+        .dash-card.dc-wrong   { color: #f87171; }
+        .dash-card.dc-total   { color: #93c5fd; }
+        .dash-card.dc-pct     { color: #fbbf24; }
+
+        /* progress */
+        .progress-outer {
+            max-width: 500px; margin: 0 auto 1.8rem;
+            background: rgba(255,255,255,0.12); border-radius: 50px; height: 12px; overflow: hidden;
+            position: relative; z-index: 2;
+        }
+        .progress-inner {
+            height: 100%; width: 0%;
+            background: linear-gradient(to right, #4ade80, #22c55e);
+            border-radius: 50px; transition: width 0.5s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* ── FILTER ── */
+        .filter-wrap {
+            background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255,255,255,0.15);
+            display: inline-flex; gap: 0.4rem; border-radius: 50px; padding: 0.35rem;
+            position: relative; z-index: 2;
+        }
+        .filter-btn {
+            border: none; background: transparent; border-radius: 50px;
+            padding: 0.45rem 1.1rem; font-family: 'Nunito', sans-serif;
+            font-size: 0.85rem; font-weight: 800; cursor: pointer; color: #c7d2fe;
+            transition: all 0.22s; display: flex; align-items: center; gap: 0.35rem;
+        }
+        .filter-btn.active { background: white; color: #1e1b4b; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .filter-btn[data-subject="Mathematics"].active { background: var(--math-color); color: white; }
+        .filter-btn[data-subject="English"].active { background: var(--eng-color); color: white; }
+        .filter-btn:not(.active):hover { background: rgba(255,255,255,0.15); }
+
+        /* ── SECTION LABELS ── */
+        .section-label {
+            grid-column: 1 / -1;
+            display: flex; align-items: center; gap: 0.8rem;
+            font-family: 'Fredoka One', cursive; font-size: 1.3rem;
+            padding: 0.3rem 0 0.2rem;
+        }
+        .section-label .sl-icon {
+            width: 40px; height: 40px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; color: white; flex-shrink: 0;
+        }
+        .sl-math .sl-icon { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .sl-math { color: #1d4ed8; }
+        .sl-eng  .sl-icon { background: linear-gradient(135deg, #f97316, #c2410c); }
+        .sl-eng  { color: #c2410c; }
+        .sl-line { flex: 1; height: 2px; border-radius: 2px; }
+        .sl-math .sl-line { background: linear-gradient(to right, #bfdbfe, transparent); }
+        .sl-eng  .sl-line { background: linear-gradient(to right, #fed7aa, transparent); }
+
+        /* ── GRID ── */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 1.4rem;
+            max-width: 1140px; margin: 0 auto;
+            padding: 2.5rem 5% 3rem;
+        }
+
+        /* ── QUESTION CARD ── */
+        .qcard {
+            background: white; border-radius: 20px;
+            padding: 1.6rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 8px 32px rgba(0,0,0,0.05);
+            border: 2.5px solid transparent;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.3s;
+            display: flex; flex-direction: column; gap: 1rem;
+            animation: cardIn 0.4s ease both;
+        }
+        @keyframes cardIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .qcard:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+        .qcard.correct-card { border-color: #86efac; background: linear-gradient(160deg, #f0fdf4, white); }
+        .qcard.wrong-card   { border-color: #fca5a5; background: linear-gradient(160deg, #fff5f5, white); }
+        .qcard.hidden       { display: none; }
+
+        /* card top row */
+        .card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            border-radius: 50px; padding: 0.28rem 0.85rem;
+            font-size: 0.72rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .badge-math    { background: var(--math-light); color: var(--math-dark); border: 1.5px solid #93c5fd; }
+        .badge-english { background: var(--eng-light);  color: var(--eng-dark);  border: 1.5px solid #fdba74; }
+        .q-num {
+            width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; font-weight: 900; color: white;
+        }
+        .qnum-math { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .qnum-eng  { background: linear-gradient(135deg, #f97316, #c2410c); }
+
+        .q-type { font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+        .q-text { font-size: 0.97rem; font-weight: 700; line-height: 1.6; color: #1e293b; }
+
+        /* divider */
+        .card-divider { height: 1px; background: #f1f5f9; margin: 0; }
+
+        /* ── OPTIONS ── */
+        .options { display: flex; flex-direction: column; gap: 0.55rem; }
+        .option {
+            display: flex; align-items: center; gap: 0.7rem;
+            border: 2px solid #e2e8f0; border-radius: 12px; padding: 0.6rem 0.95rem;
+            cursor: pointer; font-size: 0.9rem; font-weight: 700; color: #334155;
+            transition: all 0.18s; user-select: none; background: #f8fafc;
+        }
+        .option:hover:not(.disabled) { border-color: #3a7a20; background: #f0fdf4; color: #1a3a0a; transform: translateX(3px); }
+        .opt-letter {
+            width: 28px; height: 28px; border-radius: 8px; background: #e2e8f0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.78rem; font-weight: 900; flex-shrink: 0; color: #64748b;
+            transition: all 0.18s;
+        }
+        .option.selected { border-color: #3a7a20; background: #f0fdf4; }
+        .option.selected .opt-letter { background: #3a7a20; color: white; border-radius: 8px; }
+        .option.revealed-right { border-color: #15803d; background: #dcfce7; }
+        .option.revealed-right .opt-letter { background: #15803d; color: white; }
+        .option.revealed-wrong { border-color: #dc2626; background: #fee2e2; }
+        .option.revealed-wrong .opt-letter { background: #dc2626; color: white; }
+        .option.disabled { cursor: default; }
+        .option.disabled:not(.revealed-right):not(.revealed-wrong) { opacity: 0.55; }
+
+        /* ── FILL-IN ── */
+        .fill-row { display: flex; gap: 0.55rem; align-items: stretch; }
+        .fill-input {
+            flex: 1; border: 2px solid #e2e8f0; border-radius: 12px;
+            padding: 0.6rem 1rem; font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem; font-weight: 700; outline: none; background: #f8fafc;
+            transition: border-color 0.18s, background 0.18s;
+        }
+        .fill-input:focus { border-color: #3a7a20; background: white; }
+        .fill-input.fill-correct { border-color: #15803d; background: #dcfce7; color: #15803d; }
+        .fill-input.fill-wrong   { border-color: #dc2626; background: #fee2e2; color: #dc2626; }
+
+        /* ── CHECK BUTTON ── */
+        .btn-check {
+            border: none; border-radius: 50px; padding: 0.55rem 1.3rem;
+            font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 800;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;
+            background: linear-gradient(135deg, #64a243, #3a7a20); color: white;
+            box-shadow: 0 4px 0 var(--green-dark), 0 6px 16px rgba(58,122,32,0.3);
+            transition: transform 0.18s, box-shadow 0.18s; white-space: nowrap;
+        }
+        .btn-check:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 0 var(--green-dark), 0 10px 22px rgba(58,122,32,0.4); }
+        .btn-check:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--green-dark); }
+        .btn-check:disabled { opacity: 0.35; cursor: default; transform: none; box-shadow: none; }
+
+        /* ── FEEDBACK ── */
+        .feedback {
+            font-size: 0.9rem; font-weight: 800; padding: 0.6rem 1rem;
+            border-radius: 12px; display: none; align-items: center; gap: 0.5rem;
+            animation: popIn 0.3s cubic-bezier(.17,.67,.35,1.3) both;
+        }
+        @keyframes popIn { from { opacity:0; transform:scale(0.85); } to { opacity:1; transform:scale(1); } }
+        .feedback.show { display: flex; }
+        .feedback.fb-correct { background: #dcfce7; color: #15803d; border: 1.5px solid #86efac; }
+        .feedback.fb-wrong   { background: #fee2e2; color: #b91c1c; border: 1.5px solid #fca5a5; }
+
+        /* ── EXPLANATION ── */
+        .explanation {
+            font-size: 0.85rem; color: #334155; line-height: 1.75;
+            background: linear-gradient(135deg, #fffbeb, #fef9ee);
+            border: 1.5px solid #fde68a;
+            border-left: 4px solid #f59e0b;
+            border-radius: 0 12px 12px 0;
+            padding: 1rem 1.1rem; display: none;
+        }
+        .explanation.show { display: block; animation: slideDown 0.35s ease; }
+        .explanation b { color: #1e293b; }
+        .explanation strong { color: #15803d; }
+        @keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+        .exp-label { font-weight: 900; color: #b45309; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.35rem; background: #fef3c7; border-radius: 50px; padding: 0.2rem 0.7rem; width: fit-content; }
+
+        /* ── RESET SECTION ── */
+        .reset-section {
+            text-align: center; padding: 0.5rem 5% 3.5rem;
+            display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+        }
+        .score-summary {
+            font-size: 1rem; font-weight: 800; color: #64748b;
+        }
+        .score-summary span { color: #3a7a20; }
+        .btn-reset {
+            border: none; border-radius: 50px; padding: 0.75rem 2.2rem;
+            font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800;
+            cursor: pointer; background: linear-gradient(135deg, #7c3aed, #4f1dcf); color: white;
+            box-shadow: 0 5px 0 #2e0e8a, 0 8px 20px rgba(79,29,207,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .btn-reset:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #2e0e8a, 0 14px 28px rgba(79,29,207,0.5); }
+        .btn-reset:active { transform: translateY(3px); box-shadow: 0 2px 0 #2e0e8a; }
+
+        /* ── FOOTER ── */
+        footer { text-align: center; padding: 1.4rem; font-size: 0.8rem; color: #94a3b8; border-top: 1px solid #e2e8f0; background: white; }
+        footer a { color: #3a7a20; font-weight: 800; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .grid { grid-template-columns: 1fr; padding: 1.5rem 4% 3rem; }
+            .dashboard { gap: 0.6rem; }
+            .dash-card { padding: 0.7rem 1rem; min-width: 70px; }
+            .dash-num { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="../index.html" class="nav-logo">Alpha Psi <span>Sigma</span></a>
+    <a href="../index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+
+    <div class="hero-badge"><i class="fas fa-robot"></i> Powered by Sigma · PSLE AI Mentor</div>
+    <h1>📚 PSLE Practice Quiz</h1>
+    <p>Tap an answer and check instantly — with step-by-step explanations to help you learn!</p>
+
+    <div class="dashboard">
+        <div class="dash-card dc-correct">
+            <div class="dash-num" id="score-correct">0</div>
+            <div class="dash-label">✅ Correct</div>
+        </div>
+        <div class="dash-card dc-wrong">
+            <div class="dash-num" id="score-wrong">0</div>
+            <div class="dash-label">❌ Wrong</div>
+        </div>
+        <div class="dash-card dc-total">
+            <div class="dash-num"><span id="score-total">0</span><span style="font-size:1rem;opacity:0.6">/<span id="score-max">0</span></span></div>
+            <div class="dash-label">📋 Done</div>
+        </div>
+        <div class="dash-card dc-pct">
+            <div class="dash-num"><span id="score-pct">—</span></div>
+            <div class="dash-label">🏆 Score</div>
+        </div>
+    </div>
+
+    <div class="progress-outer"><div class="progress-inner" id="progress-fill"></div></div>
+    <br>
+
+    <div class="filter-wrap">
+        <button class="filter-btn active" data-subject="All"><i class="fas fa-layer-group"></i> All</button>
+        <button class="filter-btn" data-subject="Mathematics"><i class="fas fa-calculator"></i> Maths</button>
+        <button class="filter-btn" data-subject="English"><i class="fas fa-book-open"></i> English</button>
+    </div>
+</div>
+
+<!-- GRID -->
+<div class="grid" id="grid">
+
+    <!-- ═══════════ MATHEMATICS ═══════════ -->
+    <div class="section-label sl-math" data-section="Mathematics">
+        <div class="sl-icon"><i class="fas fa-calculator"></i></div>
+        Mathematics
+        <div class="sl-line"></div>
+    </div>
+
+    <div class="qcard" data-subject="Mathematics">
+        <div class="card-top">
+            <span class="badge badge-math"><i class="fas fa-calculator"></i> Mathematics</span>
+            <div class="q-num qnum-math">1</div>
+        </div>
+        <div class="q-type">Multiple Choice · Fractions & Money</div>
+        <div class="q-text">Mary had $48. She spent <sup>3</sup>/<sub>4</sub> of her money on books. How much money did she have left?</div>
+        <div class="card-divider"></div>
+        <div class="options">
+            <div class="option" data-val="A"><span class="opt-letter">A</span> $12</div>
+            <div class="option" data-val="B"><span class="opt-letter">B</span> $16</div>
+            <div class="option" data-val="C"><span class="opt-letter">C</span> $36</div>
+            <div class="option" data-val="D"><span class="opt-letter">D</span> $24</div>
+        </div>
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap">
+            <button class="btn-check" onclick="checkMCQ(this,'A')"><i class="fas fa-check"></i> Check Answer</button>
+            <div class="feedback"></div>
+        </div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step</div>
+            <b>Step 1 — Find how much was spent:</b><br>
+            ¾ × $48 = (48 ÷ 4) × 3 = $12 × 3 = <strong>$36</strong><br><br>
+            <b>Step 2 — Subtract from total:</b><br>
+            $48 − $36 = <strong>$12</strong> ✅<br><br>
+            <b>Why others are wrong:</b><br>
+            B ($16): incorrect — this is 48 ÷ 3, which has no meaning here.<br>
+            C ($36): this is the amount <em>spent</em>, not what's left.<br>
+            D ($24): this is ½ of $48, not ¾.<br><br>
+            <b>💡 Tip:</b> For fractions of a quantity, always divide by the denominator first, then multiply by the numerator.
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="Mathematics">
+        <div class="card-top">
+            <span class="badge badge-math"><i class="fas fa-calculator"></i> Mathematics</span>
+            <div class="q-num qnum-math">2</div>
+        </div>
+        <div class="q-type">Multiple Choice · Ratio</div>
+        <div class="q-text">The ratio of boys to girls in a class is 3 : 5. If there are 40 pupils altogether, how many boys are there?</div>
+        <div class="card-divider"></div>
+        <div class="options">
+            <div class="option" data-val="A"><span class="opt-letter">A</span> 24</div>
+            <div class="option" data-val="B"><span class="opt-letter">B</span> 15</div>
+            <div class="option" data-val="C"><span class="opt-letter">C</span> 25</div>
+            <div class="option" data-val="D"><span class="opt-letter">D</span> 18</div>
+        </div>
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap">
+            <button class="btn-check" onclick="checkMCQ(this,'B')"><i class="fas fa-check"></i> Check Answer</button>
+            <div class="feedback"></div>
+        </div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step</div>
+            <b>Step 1 — Find total parts:</b><br>
+            Boys : Girls = 3 : 5 → Total = 3 + 5 = <strong>8 parts</strong><br><br>
+            <b>Step 2 — Find value of 1 part:</b><br>
+            40 pupils ÷ 8 parts = <strong>5 pupils per part</strong><br><br>
+            <b>Step 3 — Find number of boys:</b><br>
+            Boys = 3 parts × 5 = <strong>15</strong> ✅<br><br>
+            <b>Why others are wrong:</b><br>
+            A (24): this equals girls (5 × 5 = 25, not 24 — none of the wrong answers make sense).<br>
+            C (25): this is the number of <em>girls</em> (5 × 5), not boys.<br>
+            D (18): no valid calculation leads here from the given ratio.<br><br>
+            <b>💡 Tip:</b> In ratio problems, always add the parts first to find the "whole," then divide the total by that sum to get one part's value.
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="Mathematics">
+        <div class="card-top">
+            <span class="badge badge-math"><i class="fas fa-calculator"></i> Mathematics</span>
+            <div class="q-num qnum-math">3</div>
+        </div>
+        <div class="q-type">Fill in the Blank · Area</div>
+        <div class="q-text">A rectangle has a length of 15 cm and a width of 8 cm. What is its area in cm²?</div>
+        <div class="card-divider"></div>
+        <div class="fill-row">
+            <input class="fill-input" type="text" placeholder="Type your answer…">
+            <button class="btn-check" onclick="checkFill(this,'120')"><i class="fas fa-check"></i> Check</button>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step</div>
+            <b>Formula:</b> Area of rectangle = length × width<br><br>
+            <b>Substituting:</b><br>
+            Area = 15 cm × 8 cm = <strong>120 cm²</strong> ✅<br><br>
+            <b>Important:</b> Area is always measured in <em>square</em> units (cm², m², etc.) because you are covering a 2D surface.<br><br>
+            <b>💡 Tip:</b> Don't confuse Area with Perimeter!<br>
+            • <b>Perimeter</b> = distance around the shape = 2 × (15 + 8) = <strong>46 cm</strong><br>
+            • <b>Area</b> = space inside the shape = 15 × 8 = <strong>120 cm²</strong>
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="Mathematics">
+        <div class="card-top">
+            <span class="badge badge-math"><i class="fas fa-calculator"></i> Mathematics</span>
+            <div class="q-num qnum-math">4</div>
+        </div>
+        <div class="q-type">Multiple Choice · Money</div>
+        <div class="q-text">Tom saved $6.40 per week. How much did he save in 5 weeks?</div>
+        <div class="card-divider"></div>
+        <div class="options">
+            <div class="option" data-val="A"><span class="opt-letter">A</span> $30.00</div>
+            <div class="option" data-val="B"><span class="opt-letter">B</span> $32.00</div>
+            <div class="option" data-val="C"><span class="opt-letter">C</span> $34.00</div>
+            <div class="option" data-val="D"><span class="opt-letter">D</span> $28.40</div>
+        </div>
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap">
+            <button class="btn-check" onclick="checkMCQ(this,'B')"><i class="fas fa-check"></i> Check Answer</button>
+            <div class="feedback"></div>
+        </div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step</div>
+            <b>Method — break it up:</b><br>
+            $6.40 × 5<br>
+            = ($6 × 5) + ($0.40 × 5)<br>
+            = $30.00 + $2.00<br>
+            = <strong>$32.00</strong> ✅<br><br>
+            <b>Why others are wrong:</b><br>
+            A ($30.00): forgot the 40 cents — only multiplied the whole-dollar part.<br>
+            C ($34.00): added $2 too many (common mental arithmetic slip).<br>
+            D ($28.40): incorrectly added 5 to $28, not multiplied.<br><br>
+            <b>💡 Tip:</b> When multiplying decimals, split into dollars and cents separately — it's easier and reduces errors.
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="Mathematics">
+        <div class="card-top">
+            <span class="badge badge-math"><i class="fas fa-calculator"></i> Mathematics</span>
+            <div class="q-num qnum-math">5</div>
+        </div>
+        <div class="q-type">Fill in the Blank · Rate</div>
+        <div class="q-text">A tap drips at 3 litres every 10 minutes. How many litres will drip in 1 hour?</div>
+        <div class="card-divider"></div>
+        <div class="fill-row">
+            <input class="fill-input" type="text" placeholder="Type your answer…">
+            <button class="btn-check" onclick="checkFill(this,'18')"><i class="fas fa-check"></i> Check</button>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step</div>
+            <b>Step 1 — Convert time:</b><br>
+            1 hour = 60 minutes<br><br>
+            <b>Step 2 — Find number of 10-minute intervals:</b><br>
+            60 ÷ 10 = <strong>6 intervals</strong><br><br>
+            <b>Step 3 — Multiply by rate:</b><br>
+            6 × 3 litres = <strong>18 litres</strong> ✅<br><br>
+            <b>💡 Tip:</b> Rate problems follow a simple pattern:<br>
+            <em>Total = Rate × Number of intervals</em><br>
+            Always convert all units to the same measure before calculating (here: everything in minutes).
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="Mathematics">
+        <div class="card-top">
+            <span class="badge badge-math"><i class="fas fa-calculator"></i> Mathematics</span>
+            <div class="q-num qnum-math">6</div>
+        </div>
+        <div class="q-type">Multiple Choice · Squares</div>
+        <div class="q-text">What is the value of 3² + 4²?</div>
+        <div class="card-divider"></div>
+        <div class="options">
+            <div class="option" data-val="A"><span class="opt-letter">A</span> 14</div>
+            <div class="option" data-val="B"><span class="opt-letter">B</span> 25</div>
+            <div class="option" data-val="C"><span class="opt-letter">C</span> 49</div>
+            <div class="option" data-val="D"><span class="opt-letter">D</span> 7</div>
+        </div>
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap">
+            <button class="btn-check" onclick="checkMCQ(this,'B')"><i class="fas fa-check"></i> Check Answer</button>
+            <div class="feedback"></div>
+        </div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step</div>
+            <b>What does "squared" mean?</b><br>
+            3² means 3 × 3 (not 3 × 2!)<br><br>
+            <b>Calculate each square:</b><br>
+            3² = 3 × 3 = <strong>9</strong><br>
+            4² = 4 × 4 = <strong>16</strong><br><br>
+            <b>Add them together:</b><br>
+            9 + 16 = <strong>25</strong> ✅<br><br>
+            <b>Why others are wrong:</b><br>
+            A (14): calculated 3 × 2 + 4 × 2 = 14 — confused squaring with multiplying by 2.<br>
+            C (49): calculated (3 + 4)² = 7² = 49 — added first then squared (wrong order!).<br>
+            D (7): just added the bases 3 + 4, ignored the squaring entirely.<br><br>
+            <b>💡 Tip:</b> Square each number <em>separately first</em>, then add. Squaring the sum is a completely different operation!
+        </div>
+    </div>
+
+    <!-- ═══════════ ENGLISH ═══════════ -->
+    <div class="section-label sl-eng" data-section="English">
+        <div class="sl-icon"><i class="fas fa-book-open"></i></div>
+        English
+        <div class="sl-line"></div>
+    </div>
+
+    <div class="qcard" data-subject="English">
+        <div class="card-top">
+            <span class="badge badge-english"><i class="fas fa-book-open"></i> English</span>
+            <div class="q-num qnum-eng">7</div>
+        </div>
+        <div class="q-type">Grammar · Subject–Verb Agreement</div>
+        <div class="q-text">Choose the correct word to complete the sentence:<br><em style="color:#475569">"She _____ to school every day."</em></div>
+        <div class="card-divider"></div>
+        <div class="options">
+            <div class="option" data-val="A"><span class="opt-letter">A</span> go</div>
+            <div class="option" data-val="B"><span class="opt-letter">B</span> goes</div>
+            <div class="option" data-val="C"><span class="opt-letter">C</span> going</div>
+            <div class="option" data-val="D"><span class="opt-letter">D</span> gone</div>
+        </div>
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap">
+            <button class="btn-check" onclick="checkMCQ(this,'B')"><i class="fas fa-check"></i> Check Answer</button>
+            <div class="feedback"></div>
+        </div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Grammar Rule</div>
+            <b>The Rule — Present Simple (3rd person singular):</b><br>
+            When the subject is <em>he / she / it</em> (or any single name), add <strong>-s</strong> or <strong>-es</strong> to the verb.<br><br>
+            <b>Applying the rule:</b><br>
+            Subject = "She" (3rd person singular) → "go" becomes <strong>"goes"</strong> ✅<br><br>
+            <b>Why others are wrong:</b><br>
+            A (go): correct for I/you/we/they — but not for she.<br>
+            C (going): needs a helper verb, e.g. "She <em>is going</em> to school."<br>
+            D (gone): past participle — needs a helper, e.g. "She has <em>gone</em>."<br><br>
+            <b>💡 Tip:</b> Remember the rule: <em>He/She/It adds an S</em>. Think of it as the subject "lending" an S to the verb!
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="English">
+        <div class="card-top">
+            <span class="badge badge-english"><i class="fas fa-book-open"></i> English</span>
+            <div class="q-num qnum-eng">8</div>
+        </div>
+        <div class="q-type">Vocabulary · Synonyms</div>
+        <div class="q-text">Choose the word <strong>closest in meaning</strong> to the underlined word:<br><em style="color:#475569">"The explorer made an <u>enormous</u> discovery."</em></div>
+        <div class="card-divider"></div>
+        <div class="options">
+            <div class="option" data-val="A"><span class="opt-letter">A</span> tiny</div>
+            <div class="option" data-val="B"><span class="opt-letter">B</span> gigantic</div>
+            <div class="option" data-val="C"><span class="opt-letter">C</span> narrow</div>
+            <div class="option" data-val="D"><span class="opt-letter">D</span> bright</div>
+        </div>
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap">
+            <button class="btn-check" onclick="checkMCQ(this,'B')"><i class="fas fa-check"></i> Check Answer</button>
+            <div class="feedback"></div>
+        </div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Vocabulary Explained</div>
+            <b>What does "enormous" mean?</b><br>
+            "Enormous" = extremely large in size or amount.<br><br>
+            <b>Finding the synonym (same meaning):</b><br>
+            ✅ <strong>Gigantic</strong> = very large → closest match<br><br>
+            <b>Why others are wrong:</b><br>
+            A (tiny): the <em>opposite</em> of enormous — this is an antonym, not a synonym.<br>
+            C (narrow): describes width, not size — unrelated.<br>
+            D (bright): describes light or intelligence — unrelated to size.<br><br>
+            <b>💡 Build your vocabulary bank:</b><br>
+            Synonyms for "enormous": gigantic, colossal, massive, immense, vast, huge.<br>
+            Antonyms: tiny, miniature, microscopic, minute.
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="English">
+        <div class="card-top">
+            <span class="badge badge-english"><i class="fas fa-book-open"></i> English</span>
+            <div class="q-num qnum-eng">9</div>
+        </div>
+        <div class="q-type">Grammar · Correct Sentence</div>
+        <div class="q-text">Which sentence is grammatically <strong>correct</strong>?</div>
+        <div class="card-divider"></div>
+        <div class="options">
+            <div class="option" data-val="A"><span class="opt-letter">A</span> The children plays in the park.</div>
+            <div class="option" data-val="B"><span class="opt-letter">B</span> The children play in the park.</div>
+            <div class="option" data-val="C"><span class="opt-letter">C</span> The children is playing in park.</div>
+            <div class="option" data-val="D"><span class="opt-letter">D</span> The childrens play in the park.</div>
+        </div>
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap">
+            <button class="btn-check" onclick="checkMCQ(this,'B')"><i class="fas fa-check"></i> Check Answer</button>
+            <div class="feedback"></div>
+        </div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Grammar Rule</div>
+            <b>Irregular plurals — "child" is special:</b><br>
+            child → <strong>children</strong> (NOT "childs" or "childrens")<br><br>
+            <b>Since "children" is already plural, the verb has no -s:</b><br>
+            ✅ "The children <strong>play</strong>" — plural subject, base verb form<br><br>
+            <b>Why others are wrong:</b><br>
+            A (plays): only used with singular subjects — "The child <em>plays</em>."<br>
+            C (is playing in park): double error — "is" is singular AND "in park" is missing "the."<br>
+            D (childrens): <strong>never correct</strong> — "children" is already plural, never add -s.<br><br>
+            <b>💡 Tip — Common irregular plurals to memorise:</b><br>
+            child→children · man→men · woman→women · tooth→teeth · foot→feet · mouse→mice
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="English">
+        <div class="card-top">
+            <span class="badge badge-english"><i class="fas fa-book-open"></i> English</span>
+            <div class="q-num qnum-eng">10</div>
+        </div>
+        <div class="q-type">Grammar · Fill in the Blank</div>
+        <div class="q-text">Fill in with the correct word:<br><em style="color:#475569">"He was so exhausted that he _____ asleep the moment he lay down."</em><br><small style="color:#94a3b8">fell / fall / fallen / falls</small></div>
+        <div class="card-divider"></div>
+        <div class="fill-row">
+            <input class="fill-input" type="text" placeholder="Type your answer…">
+            <button class="btn-check" onclick="checkFill(this,'fell')"><i class="fas fa-check"></i> Check</button>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Grammar Rule</div>
+            <b>Identify the tense:</b><br>
+            "He <em>was</em> so exhausted…" — "was" is past tense, so the blank must also be past tense.<br><br>
+            <b>"Fall" is an irregular verb:</b><br>
+            fall (present) → <strong>fell</strong> (past) → fallen (past participle)<br><br>
+            ✅ "He <strong>fell</strong> asleep" — simple past tense<br><br>
+            <b>Why others are wrong:</b><br>
+            fall: present tense — "I fall asleep easily." Wrong tense here.<br>
+            fallen: past participle — needs a helper verb: "He had <em>fallen</em> asleep."<br>
+            falls: 3rd person present — "He <em>falls</em> asleep every night." Wrong tense.<br><br>
+            <b>💡 Tip — Irregular verb trio to memorise:</b><br>
+            fall → fell → fallen &nbsp;|&nbsp; rise → rose → risen &nbsp;|&nbsp; lie → lay → lain
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="English">
+        <div class="card-top">
+            <span class="badge badge-english"><i class="fas fa-book-open"></i> English</span>
+            <div class="q-num qnum-eng">11</div>
+        </div>
+        <div class="q-type">Comprehension · Inference</div>
+        <div class="q-text">Read the passage:<br><br><em style="color:#475569; background:#f8fafc; display:block; padding:0.6rem 0.8rem; border-radius:8px; border-left:3px solid #cbd5e1;">"Despite the heavy rain, the team continued to train. Their coach had always said that <strong>champions are made in the storm, not the sunshine</strong>."</em><br><br>What does the coach's quote suggest?</div>
+        <div class="card-divider"></div>
+        <div class="options">
+            <div class="option" data-val="A"><span class="opt-letter">A</span> Champions only train in good weather.</div>
+            <div class="option" data-val="B"><span class="opt-letter">B</span> Facing hardships builds true champions.</div>
+            <div class="option" data-val="C"><span class="opt-letter">C</span> The team should avoid training in the rain.</div>
+            <div class="option" data-val="D"><span class="opt-letter">D</span> Sunshine is important for training.</div>
+        </div>
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap">
+            <button class="btn-check" onclick="checkMCQ(this,'B')"><i class="fas fa-check"></i> Check Answer</button>
+            <div class="feedback"></div>
+        </div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Comprehension Skill: Inference</div>
+            <b>Identify the literary device — Metaphor:</b><br>
+            The coach is NOT literally talking about rain or sunshine. The words are used <em>figuratively</em>:<br>
+            🌩️ "Storm" = hardship, difficulty, adversity<br>
+            ☀️ "Sunshine" = easy, comfortable times<br><br>
+            <b>Interpret the meaning:</b><br>
+            "Champions are <em>made</em> in the storm" → True champions are <em>built through hardship</em>, not comfort.<br>
+            ✅ Answer: <strong>Facing hardships builds true champions.</strong><br><br>
+            <b>Why others are wrong:</b><br>
+            A: The opposite — champions train <em>despite</em> bad conditions, not only in good ones.<br>
+            C: Contradicts the passage — the team <em>continued</em> training in the rain.<br>
+            D: Sunshine is used negatively here — it represents <em>comfort</em>, not achievement.<br><br>
+            <b>💡 Tip:</b> For inference questions, ask: <em>"What is the author really trying to say?"</em> Look for figurative language (metaphors, similes) — they always carry a deeper meaning.
+        </div>
+    </div>
+
+    <div class="qcard" data-subject="English">
+        <div class="card-top">
+            <span class="badge badge-english"><i class="fas fa-book-open"></i> English</span>
+            <div class="q-num qnum-eng">12</div>
+        </div>
+        <div class="q-type">Vocabulary · Fill in the Blank</div>
+        <div class="q-text">Choose the correct word:<br><em style="color:#475569">"The students were told to _____ their essays before handing them in."</em><br><small style="color:#94a3b8">revise / revised / revising / revision</small></div>
+        <div class="card-divider"></div>
+        <div class="fill-row">
+            <input class="fill-input" type="text" placeholder="Type your answer…">
+            <button class="btn-check" onclick="checkFill(this,'revise')"><i class="fas fa-check"></i> Check</button>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation">
+            <div class="exp-label"><i class="fas fa-lightbulb"></i> Grammar Rule</div>
+            <b>The Infinitive Rule:</b><br>
+            Whenever a verb follows <strong>"to"</strong> (as an infinitive), always use the <strong>base form</strong> of the verb — no -s, no -ed, no -ing.<br><br>
+            <b>Applying the rule:</b><br>
+            "…told to _____ their essays" → base form of "revise" = <strong>revise</strong> ✅<br><br>
+            <b>Why others are wrong:</b><br>
+            revised: past tense — "They <em>revised</em> their essays." (no "to" needed)<br>
+            revising: present participle — used in continuous tenses: "They are <em>revising</em>."<br>
+            revision: a noun — "They did a <em>revision</em> of their essays." (completely different part of speech)<br><br>
+            <b>💡 Tip — The Infinitive Pattern:</b><br>
+            to + base verb = infinitive<br>
+            Examples: to <em>run</em>, to <em>eat</em>, to <em>think</em>, to <em>revise</em><br>
+            Never: to runs / to running / to ran
+        </div>
+    </div>
+
+</div>
+
+<!-- RESET -->
+<div class="reset-section">
+    <div class="score-summary" id="summary-text"></div>
+    <button class="btn-reset" onclick="resetAll()"><i class="fas fa-redo"></i> Reset All Questions</button>
+</div>
+
+<footer>
+    &copy; 2025 <a href="../index.html">Alpha Psi Sigma</a> · Serving the future, one child at a time.
+</footer>
+
+<script>
+    let scoreCorrect = 0, scoreWrong = 0, scoreTotal = 0;
+    const totalQ = document.querySelectorAll('.qcard').length;
+    document.getElementById('score-max').textContent = totalQ;
+
+    function updateScore() {
+        document.getElementById('score-correct').textContent = scoreCorrect;
+        document.getElementById('score-wrong').textContent   = scoreWrong;
+        document.getElementById('score-total').textContent   = scoreTotal;
+        const pct = scoreTotal > 0 ? Math.round(scoreCorrect / scoreTotal * 100) + '%' : '—';
+        document.getElementById('score-pct').textContent = pct;
+        document.getElementById('progress-fill').style.width = (scoreTotal / totalQ * 100) + '%';
+        const sum = document.getElementById('summary-text');
+        if (scoreTotal > 0) sum.innerHTML = `You've answered <span>${scoreTotal}</span> of ${totalQ} questions — <span>${scoreCorrect} correct</span>, ${scoreWrong} wrong.`;
+    }
+
+    function checkMCQ(btn, correct) {
+        const card = btn.closest('.qcard');
+        const selected = card.querySelector('.option.selected');
+        if (!selected) { btn.style.animation='shake 0.3s'; setTimeout(()=>btn.style.animation='',300); return; }
+        const isRight = selected.dataset.val === correct;
+        card.querySelectorAll('.option').forEach(o => {
+            o.classList.add('disabled');
+            if (o.dataset.val === correct) o.classList.add('revealed-right');
+            else if (o === selected && !isRight) o.classList.add('revealed-wrong');
+        });
+        finalize(card, btn, isRight);
+    }
+
+    function checkFill(btn, correct) {
+        const card  = btn.closest('.qcard');
+        const input = card.querySelector('.fill-input');
+        const isRight = input.value.trim().toLowerCase() === correct.toLowerCase();
+        input.classList.add(isRight ? 'fill-correct' : 'fill-wrong');
+        input.disabled = true;
+        finalize(card, btn, isRight);
+    }
+
+    function finalize(card, btn, isRight) {
+        const fb  = card.querySelector('.feedback');
+        const exp = card.querySelector('.explanation');
+        fb.className = 'feedback show ' + (isRight ? 'fb-correct' : 'fb-wrong');
+        fb.innerHTML = isRight
+            ? '<i class="fas fa-check-circle"></i> Correct! Well done! 🎉'
+            : '<i class="fas fa-times-circle"></i> Not quite — check the explanation below.';
+        exp.classList.add('show');
+        card.classList.add(isRight ? 'correct-card' : 'wrong-card');
+        btn.disabled = true;
+        scoreTotal++; isRight ? scoreCorrect++ : scoreWrong++;
+        updateScore();
+    }
+
+    // Option click
+    document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            if (opt.classList.contains('disabled')) return;
+            opt.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+        });
+    });
+
+    // Filter — also hide/show section labels
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const sub = btn.dataset.subject;
+            document.querySelectorAll('.qcard').forEach(c =>
+                c.classList.toggle('hidden', sub !== 'All' && c.dataset.subject !== sub));
+            document.querySelectorAll('.section-label').forEach(sl =>
+                sl.style.display = (sub === 'All' || sl.dataset.section === sub) ? '' : 'none');
+        });
+    });
+
+    // Reset
+    function resetAll() {
+        scoreCorrect = scoreWrong = scoreTotal = 0;
+        updateScore();
+        document.getElementById('summary-text').innerHTML = '';
+        document.querySelectorAll('.qcard').forEach(card => {
+            card.classList.remove('correct-card','wrong-card');
+            card.querySelectorAll('.option').forEach(o => o.classList.remove('selected','revealed-right','revealed-wrong','disabled'));
+            card.querySelectorAll('.fill-input').forEach(i => { i.value=''; i.classList.remove('fill-correct','fill-wrong'); i.disabled=false; });
+            card.querySelectorAll('.feedback').forEach(f => f.className='feedback');
+            card.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            card.querySelectorAll('.btn-check').forEach(b => b.disabled=false);
+        });
+    }
+
+    // Shake animation for no-selection attempt
+    const style = document.createElement('style');
+    style.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}';
+    document.head.appendChild(style);
+</script>
+</body>
+</html>
