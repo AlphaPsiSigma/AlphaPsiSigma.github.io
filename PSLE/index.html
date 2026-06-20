@@ -314,6 +314,11 @@
 
     <div class="hero-badge"><i class="fas fa-robot"></i> Powered by Sigma · PSLE AI Mentor</div>
     <h1>📚 PSLE Practice Quiz</h1>
+    <div style="margin-top:1.2rem">
+        <a href="infamous.html" style="display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#dc2626,#991b1b);color:white;font-family:'Nunito',sans-serif;font-weight:900;font-size:0.92rem;border-radius:50px;padding:0.6rem 1.5rem;text-decoration:none;box-shadow:0 4px 0 #7f1d1d,0 6px 16px rgba(220,38,38,0.4);transition:transform 0.18s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            🔥 Try the Infamous Questions
+        </a>
+    </div>
     <p>Tap an answer and check instantly — with step-by-step explanations to help you learn!</p>
 
     <div class="dashboard">
@@ -772,7 +777,13 @@
     function checkMCQ(btn, correct) {
         const card = btn.closest('.qcard');
         const selected = card.querySelector('.option.selected');
-        if (!selected) { btn.style.animation='shake 0.3s'; setTimeout(()=>btn.style.animation='',300); return; }
+        if (!selected) {
+            const fb = card.querySelector('.feedback');
+            fb.className = 'feedback show fb-wrong';
+            fb.innerHTML = '<i class="fas fa-hand-pointer"></i> Please select an answer before checking!';
+            btn.style.animation = 'shake 0.3s'; setTimeout(() => btn.style.animation = '', 300);
+            return;
+        }
         const isRight = selected.dataset.val === correct;
         card.querySelectorAll('.option').forEach(o => {
             o.classList.add('disabled');
@@ -785,9 +796,21 @@
     function checkFill(btn, correct) {
         const card  = btn.closest('.qcard');
         const input = card.querySelector('.fill-input');
-        const isRight = input.value.trim().toLowerCase() === correct.toLowerCase();
-        input.classList.add(isRight ? 'fill-correct' : 'fill-wrong');
+        const val   = input.value.trim();
+
         input.disabled = true;
+        btn.disabled = true;
+
+        if (val === '') {
+            const fb = card.querySelector('.feedback');
+            fb.className = 'feedback show fb-wrong';
+            fb.innerHTML = '<i class="fas fa-times-circle"></i> Sorry, I cannot give you any marks and explain this question to you without any inputs.';
+            card.classList.add('wrong-card');
+            return;
+        }
+
+        const isRight = val.toLowerCase() === correct.toLowerCase();
+        input.classList.add(isRight ? 'fill-correct' : 'fill-wrong');
         finalize(card, btn, isRight);
     }
 
@@ -811,6 +834,12 @@
             if (opt.classList.contains('disabled')) return;
             opt.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
             opt.classList.add('selected');
+            // Clear any "please select" prompt
+            const fb = opt.closest('.qcard').querySelector('.feedback');
+            if (fb && fb.classList.contains('fb-wrong') && fb.querySelector('.fa-hand-pointer')) {
+                fb.className = 'feedback';
+                fb.innerHTML = '';
+            }
         });
     });
 
