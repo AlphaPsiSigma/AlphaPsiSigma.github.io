@@ -217,6 +217,28 @@
         .explanation b { color: #1e293b; }
         .exp-step { margin-bottom: 0.5rem; }
 
+        /* ── SCORE DASHBOARD ── */
+        .dashboard {
+            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+            margin-top: 1.6rem; position: relative; z-index: 2;
+        }
+        .dash-card {
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255,255,255,0.18); border-radius: 16px;
+            padding: 0.9rem 1.4rem; text-align: center; min-width: 90px;
+        }
+        .dash-num { font-family: 'Fredoka One', cursive; font-size: 2rem; line-height: 1; }
+        .dash-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; margin-top: 0.2rem; }
+        .dash-card.dc-correct { color: #4ade80; }
+        .dash-card.dc-wrong   { color: #f87171; }
+        .dash-card.dc-total   { color: #93c5fd; }
+        .dash-card.dc-pct     { color: #fbbf24; }
+        @media (max-width: 600px) {
+            .dashboard { gap: 0.6rem; }
+            .dash-card { padding: 0.7rem 1rem; min-width: 70px; }
+            .dash-num  { font-size: 1.6rem; }
+        }
+
         /* ── DATA TABLE ── */
         .data-table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.4rem; font-size: 0.88rem; }
         .data-table th { background: #f8fafc; color: #475569; font-weight: 900; text-align: center; padding: 0.6rem 0.8rem; border: 1px solid #e2e8f0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -295,6 +317,24 @@
         </a>
     </div>
     <!-- <p>The mathematics questions that broke the internet — and quite a few 12-year-olds too.</p> -->
+    <div class="dashboard">
+        <div class="dash-card dc-correct">
+            <div class="dash-num" id="inf-correct">0</div>
+            <div class="dash-label">✅ Correct</div>
+        </div>
+        <div class="dash-card dc-wrong">
+            <div class="dash-num" id="inf-wrong">0</div>
+            <div class="dash-label">❌ Wrong</div>
+        </div>
+        <div class="dash-card dc-total">
+            <div class="dash-num"><span id="inf-done">0</span><span style="font-size:1rem;opacity:0.6">/7</span></div>
+            <div class="dash-label">📋 Done</div>
+        </div>
+        <div class="dash-card dc-pct">
+            <div class="dash-num"><span id="inf-pct">0%</span></div>
+            <div class="dash-label">🏆 Score</div>
+        </div>
+    </div>
 </div>
 
 <!-- INTRO STRIP -->
@@ -607,6 +647,17 @@
 
 <script>
 
+    /* ── SCORE TRACKER ── */
+    let infCorrect = 0, infWrong = 0, infDone = 0;
+    const INF_TOTAL = 7;
+
+    function updateInfScore() {
+        document.getElementById('inf-correct').textContent = infCorrect;
+        document.getElementById('inf-wrong').textContent   = infWrong;
+        document.getElementById('inf-done').textContent    = infDone;
+        document.getElementById('inf-pct').textContent     = Math.round(infCorrect / INF_TOTAL * 100) + '%';
+    }
+
     /* ── ANSWER CHECKER ── */
     function normalize(s) {
         return s.toLowerCase().replace(/[$,\s]/g, '');
@@ -645,11 +696,16 @@
             input.classList.add('inp-correct');
             fb.className = 'feedback fb-correct show';
             fb.innerHTML = '<i class="fas fa-check-circle" style="flex-shrink:0;margin-top:0.1rem"></i><span>Correct! Outstanding work! 🎉</span>';
+            infCorrect++;
         } else {
             input.classList.add('inp-wrong');
             fb.className = 'feedback fb-wrong show';
             fb.innerHTML = `<i class="fas fa-times-circle" style="flex-shrink:0;margin-top:0.1rem"></i><span>Wrong. The correct answer is <strong>${correct}</strong>. See the explanation below.</span>`;
+            infWrong++;
         }
+
+        infDone++;
+        updateInfScore();
 
         if (exp) exp.classList.add('show');
     }

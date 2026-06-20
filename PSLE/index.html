@@ -335,7 +335,7 @@
             <div class="dash-label">📋 Done</div>
         </div>
         <div class="dash-card dc-pct">
-            <div class="dash-num"><span id="score-pct">—</span></div>
+            <div class="dash-num"><span id="score-pct">0%</span></div>
             <div class="dash-label">🏆 Score</div>
         </div>
     </div>
@@ -767,7 +767,7 @@
         document.getElementById('score-correct').textContent = scoreCorrect;
         document.getElementById('score-wrong').textContent   = scoreWrong;
         document.getElementById('score-total').textContent   = scoreTotal;
-        const pct = scoreTotal > 0 ? Math.round(scoreCorrect / scoreTotal * 100) + '%' : '—';
+        const pct = Math.round(scoreCorrect / totalQ * 100) + '%';
         document.getElementById('score-pct').textContent = pct;
         document.getElementById('progress-fill').style.width = (scoreTotal / totalQ * 100) + '%';
         const sum = document.getElementById('summary-text');
