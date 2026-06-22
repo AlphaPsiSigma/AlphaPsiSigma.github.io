@@ -284,6 +284,24 @@
         .tg-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #1a7da8, 0 10px 24px rgba(34,158,217,0.5); color: white; }
         .tg-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1a7da8; }
 
+        /* ── RESET ── */
+        .reset-section {
+            text-align: center; padding: 0.5rem 5% 3.5rem;
+            display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+        }
+        .score-summary { font-size: 1rem; font-weight: 800; color: #64748b; }
+        .score-summary span { color: #dc2626; }
+        .btn-reset {
+            border: none; border-radius: 50px; padding: 0.75rem 2.2rem;
+            font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800;
+            cursor: pointer; background: linear-gradient(135deg, #dc2626, #991b1b); color: white;
+            box-shadow: 0 5px 0 #7f1d1d, 0 8px 20px rgba(220,38,38,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .btn-reset:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #7f1d1d, 0 14px 28px rgba(220,38,38,0.5); }
+        .btn-reset:active { transform: translateY(3px); box-shadow: 0 2px 0 #7f1d1d; }
+
         footer { text-align: center; padding: 1.4rem; font-size: 0.8rem; color: #94a3b8; border-top: 1px solid #e2e8f0; background: white; }
         footer a { color: #3a7a20; font-weight: 800; }
 
@@ -492,6 +510,58 @@
                 <div class="feedback" id="fb-a3a"></div>
                 <div class="explanation" id="exp-a3a">
                     <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step Working</div>
+                    <div style="background:#f1f5f9;border-radius:10px;padding:0.5rem;margin:0.8rem 0 1rem">
+                    <svg viewBox="0 0 500 215" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto;font-family:'Nunito',sans-serif">
+                      <defs>
+                        <marker id="d1ra" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><polygon points="0 0,6 2.5,0 5" fill="#64748b"/></marker>
+                        <marker id="d1la" markerWidth="6" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse"><polygon points="6 0,0 2.5,6 5" fill="#64748b"/></marker>
+                        <marker id="d1rb" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><polygon points="0 0,6 2.5,0 5" fill="#2563eb"/></marker>
+                        <marker id="d1lb" markerWidth="6" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse"><polygon points="6 0,0 2.5,6 5" fill="#2563eb"/></marker>
+                      </defs>
+                      <text x="250" y="14" text-anchor="middle" font-size="11" fill="#64748b" font-weight="700">Diagram 1 — Finding AB</text>
+                      <!-- △ABC (grey, left) -->
+                      <polygon points="30,155 115,10 200,155" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+                      <!-- △GHI (grey, right) -->
+                      <polygon points="295,155 380,10 465,155" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+                      <!-- △DEF (white, middle, dashed) -->
+                      <polygon points="140,155 225,10 310,155" fill="white" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,3"/>
+                      <!-- Labels inside triangles -->
+                      <text x="73" y="120" text-anchor="middle" font-size="9" fill="#475569" font-style="italic">△ABC</text>
+                      <text x="225" y="108" text-anchor="middle" font-size="9" fill="#94a3b8" font-style="italic">△DEF</text>
+                      <text x="378" y="120" text-anchor="middle" font-size="9" fill="#475569" font-style="italic">△GHI</text>
+                      <!-- Shaded / White labels -->
+                      <text x="73" y="133" text-anchor="middle" font-size="9" fill="#475569">Shaded</text>
+                      <text x="225" y="121" text-anchor="middle" font-size="9" fill="#94a3b8">White</text>
+                      <text x="378" y="133" text-anchor="middle" font-size="9" fill="#475569">Shaded</text>
+                      <!-- Vertex labels: A B C D E F G H I -->
+                      <text x="19" y="168" font-size="12" fill="#1e293b" font-weight="800">A</text>
+                      <text x="110" y="9" font-size="12" fill="#1e293b" font-weight="800">B</text>
+                      <text x="196" y="168" font-size="12" fill="#1e293b" font-weight="800">C</text>
+                      <text x="129" y="168" font-size="12" fill="#1e293b" font-weight="800">D</text>
+                      <text x="221" y="9" font-size="12" fill="#1e293b" font-weight="800">E</text>
+                      <text x="309" y="168" font-size="12" fill="#1e293b" font-weight="800">F</text>
+                      <text x="280" y="168" font-size="12" fill="#1e293b" font-weight="800">G</text>
+                      <text x="376" y="9" font-size="12" fill="#1e293b" font-weight="800">H</text>
+                      <text x="462" y="168" font-size="12" fill="#1e293b" font-weight="800">I</text>
+                      <!-- AB label on left slant (red) -->
+                      <text x="58" y="97" font-size="11" fill="#dc2626" font-weight="700" transform="rotate(-60,58,90)">AB</text>
+                      <!-- GI = 26 cm label inside right triangle -->
+                      <text x="380" y="100" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">GI = 26 cm</text>
+                      <text x="380" y="113" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">= AB ✓</text>
+                      <!-- AD = 18 cm arrow (given) -->
+                      <line x1="31" y1="170" x2="138" y2="170" stroke="#64748b" stroke-width="1.2" marker-end="url(#d1ra)" marker-start="url(#d1la)"/>
+                      <text x="84" y="181" text-anchor="middle" font-size="10" fill="#475569">AD = 18 cm</text>
+                      <!-- GF = 3 cm (tiny, between G=295 and F=310) -->
+                      <line x1="295" y1="161" x2="310" y2="161" stroke="#64748b" stroke-width="1" marker-end="url(#d1ra)" marker-start="url(#d1la)"/>
+                      <text x="302" y="155" text-anchor="middle" font-size="9" fill="#475569">GF=3</text>
+                      <!-- FI = 23 cm (blue, derived) -->
+                      <line x1="311" y1="183" x2="464" y2="183" stroke="#2563eb" stroke-width="1.2" marker-end="url(#d1rb)" marker-start="url(#d1lb)"/>
+                      <text x="387" y="194" text-anchor="middle" font-size="10" fill="#2563eb">FI = 41 − 18 = 23 cm</text>
+                      <!-- AI = 41 cm full span -->
+                      <line x1="30" y1="200" x2="465" y2="200" stroke="#94a3b8" stroke-width="1.1" marker-end="url(#d1ra)" marker-start="url(#d1la)"/>
+                      <text x="248" y="212" text-anchor="middle" font-size="10" fill="#64748b">AI = 41 cm (given)</text>
+                    </svg>
+                    </div>
                     <div class="exp-step"><b>Label the vertices:</b> Call the three equilateral triangles △ABC, △DEF and △GHI (left to right). The side lengths shown are: AD = CF = 18 cm, and GF = 3 cm. The total length from A to I is 41 cm.</div>
                     <div class="exp-step"><b>Since △ABC ≅ △DEF ≅ △GHI</b> (all three triangles are congruent):<br>
                     AD = CF = 18 cm (given overlap lengths)<br>
@@ -517,6 +587,62 @@
                 <div class="feedback" id="fb-a3b"></div>
                 <div class="explanation" id="exp-a3b">
                     <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step Working</div>
+                    <div style="background:#f1f5f9;border-radius:10px;padding:0.5rem;margin:0.8rem 0 1rem">
+                    <svg viewBox="0 0 500 215" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto;font-family:'Nunito',sans-serif">
+                      <defs>
+                        <marker id="d2ro" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><polygon points="0 0,6 2.5,0 5" fill="#ea580c"/></marker>
+                        <marker id="d2lo" markerWidth="6" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse"><polygon points="6 0,0 2.5,6 5" fill="#ea580c"/></marker>
+                      </defs>
+                      <text x="250" y="14" text-anchor="middle" font-size="11" fill="#64748b" font-weight="700">Diagram 2 — Perimeter of Shaded Areas = 145 cm</text>
+                      <!-- Coordinates: A(30,155) B(115,10) C(200,155) D(140,155) E(225,10) F(310,155) G(295,155) H(380,10) I(465,155) -->
+                      <!-- J=(170,108)  K=(303,142) -->
+                      <!-- Base triangles (faint) -->
+                      <polygon points="30,155 115,10 200,155" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+                      <polygon points="295,155 380,10 465,155" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+                      <polygon points="140,155 225,10 310,155" fill="white" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5,3"/>
+                      <!-- Left shaded region: quadrilateral A-B-J-D -->
+                      <polygon points="30,155 115,10 170,108 140,155" fill="#94a3b8" stroke="none" opacity="0.75"/>
+                      <!-- Right shaded region: quadrilateral K-H-I-F -->
+                      <polygon points="303,142 380,10 465,155 310,155" fill="#94a3b8" stroke="none" opacity="0.75"/>
+                      <!-- Perimeter outlines (orange) -->
+                      <polyline points="30,155 115,10 170,108 140,155 30,155" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linejoin="round"/>
+                      <polyline points="310,155 303,142 380,10 465,155 310,155" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linejoin="round"/>
+                      <!-- Vertex labels -->
+                      <text x="19" y="168" font-size="12" fill="#1e293b" font-weight="800">A</text>
+                      <text x="110" y="9" font-size="12" fill="#1e293b" font-weight="800">B</text>
+                      <text x="196" y="168" font-size="12" fill="#1e293b" font-weight="800">C</text>
+                      <text x="129" y="168" font-size="12" fill="#1e293b" font-weight="800">D</text>
+                      <text x="221" y="9" font-size="12" fill="#1e293b" font-weight="800">E</text>
+                      <text x="309" y="168" font-size="12" fill="#1e293b" font-weight="800">F</text>
+                      <text x="280" y="168" font-size="12" fill="#1e293b" font-weight="800">G</text>
+                      <text x="376" y="9" font-size="12" fill="#1e293b" font-weight="800">H</text>
+                      <text x="462" y="168" font-size="12" fill="#1e293b" font-weight="800">I</text>
+                      <!-- J and K intersection dots + labels -->
+                      <circle cx="170" cy="108" r="4" fill="#1e293b" stroke="white" stroke-width="1.5"/>
+                      <text x="156" y="107" text-anchor="end" font-size="11" fill="#1e293b" font-weight="800">J</text>
+                      <circle cx="303" cy="142" r="4" fill="#1e293b" stroke="white" stroke-width="1.5"/>
+                      <text x="315" y="141" font-size="11" fill="#1e293b" font-weight="800">K</text>
+                      <!-- Perimeter segment labels (orange) -->
+                      <!-- AB=26: left slant A→B, midpoint (72,82), rotate -60° -->
+                      <text x="60" y="88" font-size="10" fill="#ea580c" font-weight="700" transform="rotate(-60,60,84)">AB=26</text>
+                      <!-- BJ=18: B(115,10)→J(170,108), midpoint (142,59), rotate +59° -->
+                      <text x="150" y="53" font-size="10" fill="#ea580c" font-weight="700" transform="rotate(59,148,56)">BJ=18</text>
+                      <!-- DJ=8: D(140,155)→J(170,108), midpoint (155,131), rotate -57° -->
+                      <text x="162" y="135" font-size="10" fill="#ea580c" font-weight="700" transform="rotate(-57,159,131)">DJ=8</text>
+                      <!-- DA=18: bottom base, midpoint (85,155) -->
+                      <text x="85" y="173" text-anchor="middle" font-size="10" fill="#ea580c" font-weight="700">DA=18</text>
+                      <!-- KH=23: K(303,142)→H(380,10), midpoint (341,76), rotate -60° -->
+                      <text x="338" y="70" font-size="10" fill="#ea580c" font-weight="700" transform="rotate(-60,335,67)">KH=23</text>
+                      <!-- HI=26: H(380,10)→I(465,155), midpoint (422,82), rotate +60° -->
+                      <text x="447" y="90" font-size="10" fill="#ea580c" font-weight="700" transform="rotate(60,444,86)">HI=26</text>
+                      <!-- FI=23: F(310,155)→I(465,155), bottom base -->
+                      <text x="387" y="173" text-anchor="middle" font-size="10" fill="#ea580c" font-weight="700">FI=23</text>
+                      <!-- KF=3: K(303,142)→F(310,155), tiny segment -->
+                      <text x="295" y="152" text-anchor="end" font-size="10" fill="#ea580c" font-weight="700">KF=3</text>
+                      <!-- Total -->
+                      <text x="250" y="196" text-anchor="middle" font-size="11" fill="#1e293b" font-weight="700">26+18+8+18 + 23+26+23+3 = 145 cm</text>
+                    </svg>
+                    </div>
                     <div class="exp-step"><b>Label the intersection points</b> J (between △ABC and △DEF) and K (between △DEF and △GHI).</div>
                     <div class="exp-step"><b>Find sides of overlapping triangle DJC (between △ABC and △DEF):</b><br>
                     DF = AB = 26 cm (congruent triangles)<br>
@@ -540,7 +666,7 @@
             <span class="case-source">PSLE 2019 · Mathematics Paper 2 · Question 17</span>
         </div>
         <div class="case-body">
-            <h3>Triangle Completion Pattern</h3>
+            <h3>Triangle Pattern Completion</h3>
             <img src="psle2019_q17_triangles.png" alt="PSLE 2019 Triangle Pattern — Figures 1 to 4" style="width:100%;max-width:700px;border-radius:12px;display:block;margin:0 auto 1.4rem;border:1px solid var(--border);background:#fff;padding:0.5rem;">
 
             <table class="data-table">
@@ -565,7 +691,7 @@
             <!-- Part (a) -->
             <div class="part-wrap">
                 <div class="part-label"><i class="fas fa-circle-question"></i> Part (a)</div>
-                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many <strong>white</strong> triangles are in the 250th figure?</p>
+                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many <strong>white</strong> triangles are <strong>there</strong> in the 250th figure?</p>
                 <div class="input-row">
                     <input class="ans-input" id="a2a" type="text" placeholder="Your answer…">
                     <button class="btn-submit" onclick="checkAns('a2a','fb-a2a','exp-a2a','31125',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
@@ -574,6 +700,15 @@
                 <div class="explanation" id="exp-a2a">
                     <div class="exp-label"><i class="fas fa-lightbulb"></i> Finding the Pattern</div>
                     <div class="exp-step"><b>Key Insight:</b> Odd-numbered rows are white. Row r has (2r − 1) triangles.</div>
+                    <div class="exp-step" style="background:#eff6ff;border-left:3px solid #3b82f6;border-radius:0 8px 8px 0">
+                        <b>Sum of Arithmetic Sequence Formula:</b><br>
+                        <span style="font-size:1.15rem;font-family:'Fredoka One',cursive;color:#1d4ed8;letter-spacing:0.02em">Sₙ = n/2 × (a₁ + aₙ)</span><br>
+                        <span style="color:#475569;font-size:0.92em">
+                            where &nbsp;<b>n</b> = number of terms in the sequence<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>a₁</b> = first term &nbsp;|&nbsp; <b>aₙ</b> = last term
+                        </span><br>
+                        <em style="color:#64748b;font-size:0.88em">To find the sum: average the first and last term, then multiply by the number of terms.</em>
+                    </div>
                     <div class="exp-step"><b>White rows in Figure 250:</b> rows 1, 3, 5, …, 249 → 125 white rows<br>
                     Row 1 → 1 triangle<br>
                     Row 3 → 5 triangles<br>
@@ -591,7 +726,7 @@
             <!-- Part (b) -->
             <div class="part-wrap">
                 <div class="part-label"><i class="fas fa-circle-question"></i> Part (b)</div>
-                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many <strong>grey</strong> triangles are in the 250th figure?</p>
+                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many <strong>grey</strong> triangles are <strong>there</strong> in the 250th figure?</p>
                 <div class="input-row">
                     <input class="ans-input" id="a2b" type="text" placeholder="Your answer…">
                     <button class="btn-submit" onclick="checkAns('a2b','fb-a2b','exp-a2b','31375',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
@@ -600,6 +735,15 @@
                 <div class="explanation" id="exp-a2b">
                     <div class="exp-label"><i class="fas fa-lightbulb"></i> Finding the Pattern</div>
                     <div class="exp-step"><b>Key Insight:</b> Even-numbered rows are grey. Row r has (2r − 1) triangles.</div>
+                    <div class="exp-step" style="background:#eff6ff;border-left:3px solid #3b82f6;border-radius:0 8px 8px 0">
+                        <b>Sum of Arithmetic Sequence Formula:</b><br>
+                        <span style="font-size:1.15rem;font-family:'Fredoka One',cursive;color:#1d4ed8;letter-spacing:0.02em">Sₙ = n/2 × (a₁ + aₙ)</span><br>
+                        <span style="color:#475569;font-size:0.92em">
+                            where &nbsp;<b>n</b> = number of terms in the sequence<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>a₁</b> = first term &nbsp;|&nbsp; <b>aₙ</b> = last term
+                        </span><br>
+                        <em style="color:#64748b;font-size:0.88em">To find the sum: average the first and last term, then multiply by the number of terms.</em>
+                    </div>
                     <div class="exp-step"><b>Grey rows in Figure 250:</b> rows 2, 4, 6, …, 250 → 125 grey rows<br>
                     Row 2 → 3 triangles<br>
                     Row 4 → 7 triangles<br>
@@ -639,6 +783,12 @@
             </a>
         </div>
     </div>
+</div>
+
+<!-- RESET -->
+<div class="reset-section">
+    <div class="score-summary" id="inf-summary"></div>
+    <button class="btn-reset" onclick="resetAll()"><i class="fas fa-redo"></i> Reset All Questions</button>
 </div>
 
 <footer>
@@ -708,6 +858,21 @@
         updateInfScore();
 
         if (exp) exp.classList.add('show');
+    }
+
+    /* ── RESET ── */
+    function resetAll() {
+        infCorrect = infWrong = infDone = 0;
+        updateInfScore();
+        document.getElementById('inf-summary').innerHTML = '';
+        document.querySelectorAll('.ans-input').forEach(i => {
+            i.value = '';
+            i.classList.remove('inp-correct', 'inp-wrong', 'inp-empty');
+            i.disabled = false;
+        });
+        document.querySelectorAll('.feedback').forEach(f => f.className = 'feedback');
+        document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+        document.querySelectorAll('.btn-submit').forEach(b => b.disabled = false);
     }
 
     /* ── LIKE BUTTON ── */
