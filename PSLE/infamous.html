@@ -302,6 +302,26 @@
         .btn-reset:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #7f1d1d, 0 14px 28px rgba(220,38,38,0.5); }
         .btn-reset:active { transform: translateY(3px); box-shadow: 0 2px 0 #7f1d1d; }
 
+        .btn-reveal-yes, .btn-reveal-no {
+            border: none; border-radius: 8px; padding: 0.5rem 1.2rem;
+            font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .btn-reveal-yes {
+            background: #10b981; color: white;
+            box-shadow: 0 3px 0 #047857, 0 6px 12px rgba(16,185,129,0.3);
+        }
+        .btn-reveal-yes:hover { transform: translateY(-2px); box-shadow: 0 4px 0 #047857, 0 8px 16px rgba(16,185,129,0.4); }
+        .btn-reveal-yes:active { transform: translateY(2px); box-shadow: 0 1px 0 #047857, 0 2px 6px rgba(16,185,129,0.2); }
+
+        .btn-reveal-no {
+            background: #ef4444; color: white;
+            box-shadow: 0 3px 0 #dc2626, 0 6px 12px rgba(239,68,68,0.3);
+        }
+        .btn-reveal-no:hover { transform: translateY(-2px); box-shadow: 0 4px 0 #dc2626, 0 8px 16px rgba(239,68,68,0.4); }
+        .btn-reveal-no:active { transform: translateY(2px); box-shadow: 0 1px 0 #dc2626, 0 2px 6px rgba(239,68,68,0.2); }
+
         footer { text-align: center; padding: 1.4rem; font-size: 0.8rem; color: #94a3b8; border-top: 1px solid #e2e8f0; background: white; }
         footer a { color: #3a7a20; font-weight: 800; }
 
@@ -488,16 +508,8 @@
             <span class="case-source">PSLE 2025 · Mathematics Paper 2 · Question 17</span>
         </div>
         <div class="case-body">
-            <h3>PSLE 2025</h3>
-            <p style="font-size:0.9rem;color:#475569;margin-bottom:1.2rem;">This was the very last question on last year's PSLE Math Paper 2. One of our tutors solved it in under a minute — mentally. Can you?</p>
+            <h3>Three Equilateral Triangles</h3>
             <img src="psle2025_q17.png" alt="PSLE 2025 Mathematics Paper 2, Question 17" class="q3-img">
-
-            <!-- Principles box -->
-            <div style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.25);border-left:3px solid #7c3aed;border-radius:0 12px 12px 0;padding:1rem 1.2rem;margin-bottom:1.4rem;font-size:0.86rem;color:#1e293b;line-height:1.8;">
-                <div style="font-size:0.73rem;font-weight:900;color:#1e293b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;"><i class="fas fa-star"></i> Key Principles to Apply</div>
-                <b style="color:#1e293b;">Equilateral Principle:</b> Equilateral triangles have three equal sides and each interior angle is 60°. All equilateral triangles are similar — same shape regardless of size.<br>
-                <b style="color:#1e293b;">Congruence Principle:</b> When equilateral triangles overlap, the overlapping parts share the same lengths. If two equilateral triangles are congruent (≅), all their corresponding sides and angles are identical.
-            </div>
 
             <!-- Part (a) -->
             <div class="part-wrap">
@@ -510,6 +522,12 @@
                 <div class="feedback" id="fb-a3a"></div>
                 <div class="explanation" id="exp-a3a">
                     <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step Working</div>
+                    <!-- Principles box - inside explanation -->
+                    <div style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.25);border-left:3px solid #7c3aed;border-radius:0 12px 12px 0;padding:1rem 1.2rem;margin-bottom:1.4rem;font-size:0.86rem;color:#1e293b;line-height:1.8;">
+                        <div style="font-size:0.73rem;font-weight:900;color:#1e293b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;"><i class="fas fa-star"></i> Key Principles to Apply</div>
+                        <b style="color:#1e293b;">Equilateral Principle:</b> Equilateral triangles have three equal sides and each interior angle is 60°. All equilateral triangles are similar — same shape regardless of size.<br>
+                        <b style="color:#1e293b;">Congruence Principle:</b> When equilateral triangles overlap, the overlapping parts share the same lengths. If two equilateral triangles are congruent (≅), all their corresponding sides and angles are identical.
+                    </div>
                     <div style="background:#f1f5f9;border-radius:10px;padding:0.5rem;margin:0.8rem 0 1rem">
                     <svg viewBox="0 0 500 215" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto;font-family:'Nunito',sans-serif">
                       <defs>
@@ -691,7 +709,7 @@
             <!-- Part (a) -->
             <div class="part-wrap">
                 <div class="part-label"><i class="fas fa-circle-question"></i> Part (a)</div>
-                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many <strong>white</strong> triangles are <strong>there</strong> in the 250th figure?</p>
+                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many <strong>white</strong> triangles are there in the 250th figure?</p>
                 <div class="input-row">
                     <input class="ans-input" id="a2a" type="text" placeholder="Your answer…">
                     <button class="btn-submit" onclick="checkAns('a2a','fb-a2a','exp-a2a','31125',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
@@ -726,7 +744,7 @@
             <!-- Part (b) -->
             <div class="part-wrap">
                 <div class="part-label"><i class="fas fa-circle-question"></i> Part (b)</div>
-                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many <strong>grey</strong> triangles are <strong>there</strong> in the 250th figure?</p>
+                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many <strong>grey</strong> triangles are there in the 250th figure?</p>
                 <div class="input-row">
                     <input class="ans-input" id="a2b" type="text" placeholder="Your answer…">
                     <button class="btn-submit" onclick="checkAns('a2b','fb-a2b','exp-a2b','31375',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
@@ -754,6 +772,49 @@
                     Grey = 125 × (3 + 499) ÷ 2 = 125 × 251 = <strong>31,375</strong></div>
                     <div class="exp-step"><b>Verify:</b> White + Grey = 31,125 + 31,375 = 62,500 = 250² ✓</div>
                     <div class="exp-step">✅ <strong>There are 31,375 grey triangles in the 250th figure.</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ───── Q4: JESS'S RIBBONS ───── -->
+    <div class="case-card">
+        <div class="case-header">
+            <span class="case-num">Question 4</span>
+            <span class="case-source">PSLE 2017 · Mathematics Paper 2 · Question 17</span>
+        </div>
+        <div class="case-body">
+            <h3>Jess's Ribbons — Unit Conversion &amp; Rounding</h3>
+            <div class="q-block">
+                <div class="qline"><strong>Problem:</strong> Jess needs 200 pieces of ribbon, each of length <strong>110 cm</strong>, to decorate a room for a party.</div>
+                <div class="qline">Ribbon is sold in rolls of <strong>25 m</strong> each.</div>
+                <div class="qline"><strong>Question:</strong> What is the least number of rolls of ribbon that Jess needs to buy?</div>
+            </div>
+
+            <!-- Part (a) — already integrated into single question -->
+            <div class="part-wrap">
+                <div class="part-label"><i class="fas fa-circle-question"></i> Answer</div>
+                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many rolls does Jess need to buy?</p>
+                <div class="input-row">
+                    <input class="ans-input" id="a4a" type="text" placeholder="Your answer…">
+                    <button class="btn-submit" onclick="checkAns('a4a','fb-a4a','exp-a4a','9',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
+                </div>
+                <div class="feedback" id="fb-a4a"></div>
+                <div class="explanation" id="exp-a4a">
+                    <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step Working</div>
+                    <div class="exp-step"><b>Step 1: Find total length of ribbon needed (in one unit).</b><br>
+                    Total length = 200 pieces × 110 cm/piece = <strong>22,000 cm</strong></div>
+                    <div class="exp-step"><b>Step 2: Convert to metres (same unit as roll size).</b><br>
+                    22,000 cm = 22,000 ÷ 100 = <strong>220 m</strong></div>
+                    <div class="exp-step"><b>Step 3: Divide by roll size to find number of rolls.</b><br>
+                    Number of rolls = 220 m ÷ 25 m/roll = <strong>8.8 rolls</strong></div>
+                    <div class="exp-step"><b>Step 4: Round up (can't buy partial rolls).</b><br>
+                    Since 8.8 > 8, Jess cannot buy exactly 8 rolls — she needs at least 9 rolls to have enough ribbon.</div>
+                    <div class="exp-step">✅ <strong>Jess needs to buy 9 rolls.</strong></div>
+                    <div class="exp-step" style="background:#fff3cd;border-left:3px solid #ffc107;border-radius:0 8px 8px 0;padding:0.8rem;margin-top:0.8rem">
+                        <b>💡 Key Insight — "Least Number" means rounding UP:</b><br>
+                        When a problem asks for the <em>least number</em> of items needed, and division gives a decimal, always <strong>round up</strong> (ceiling function). Jess can't buy 8.8 rolls, so she must buy 9.
+                    </div>
                 </div>
             </div>
         </div>
@@ -849,17 +910,32 @@
             fb.className = 'feedback fb-correct show';
             fb.innerHTML = '<i class="fas fa-check-circle" style="flex-shrink:0;margin-top:0.1rem"></i><span>Correct! Outstanding work! 🎉</span>';
             infCorrect++;
+            infDone++;
+            updateInfScore();
+            if (exp) exp.classList.add('show');
         } else {
             input.classList.add('inp-wrong');
             fb.className = 'feedback fb-wrong show';
-            fb.innerHTML = `<i class="fas fa-times-circle" style="flex-shrink:0;margin-top:0.1rem"></i><span>Wrong. The correct answer is <strong>${correct}</strong>. See the explanation below.</span>`;
+            fb.innerHTML = `<i class="fas fa-times-circle" style="flex-shrink:0;margin-top:0.1rem"></i><span>Wrong.</span><div style="margin-top:0.8rem;display:flex;gap:0.6rem;flex-wrap:wrap"><button class="btn-reveal-yes" onclick="revealAnswer('${feedbackId}', '${expId}', '${correct}')"><i class="fas fa-check"></i> Yes, show answer</button><button class="btn-reveal-no" onclick="hidePrompt('${feedbackId}')"><i class="fas fa-times"></i> No, thanks</button></div>`;
             infWrong++;
+            infDone++;
+            updateInfScore();
         }
+    }
 
-        infDone++;
-        updateInfScore();
+    /* ── REVEAL ANSWER ── */
+    function revealAnswer(feedbackId, expId, correctAnswer) {
+        const fb = document.getElementById(feedbackId);
+        fb.innerHTML = `<i class="fas fa-times-circle" style="flex-shrink:0;margin-top:0.1rem"></i><span>Wrong. The correct answer is <strong>${correctAnswer}</strong>.</span>`;
+        if (expId) {
+            const exp = document.getElementById(expId);
+            if (exp) exp.classList.add('show');
+        }
+    }
 
-        if (exp) exp.classList.add('show');
+    function hidePrompt(feedbackId) {
+        const fb = document.getElementById(feedbackId);
+        fb.innerHTML = `<i class="fas fa-times-circle" style="flex-shrink:0;margin-top:0.1rem"></i><span>Wrong.</span>`;
     }
 
     /* ── RESET ── */
