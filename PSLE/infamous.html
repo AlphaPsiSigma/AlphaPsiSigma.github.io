@@ -810,23 +810,29 @@
                 <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">How many rolls does Jess need to buy?</p>
                 <div class="input-row">
                     <input class="ans-input" id="a4a" type="text" placeholder="Your answer…">
-                    <button class="btn-submit" onclick="checkAns('a4a','fb-a4a','exp-a4a','9',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
+                    <button class="btn-submit" onclick="checkAns('a4a','fb-a4a','exp-a4a','10',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
                 </div>
                 <div class="feedback" id="fb-a4a"></div>
                 <div class="explanation" id="exp-a4a">
                     <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step Working</div>
-                    <div class="exp-step"><b>Step 1: Find total length of ribbon needed (in one unit).</b><br>
-                    Total length = 200 pieces × 110 cm/piece = <strong>22,000 cm</strong></div>
-                    <div class="exp-step"><b>Step 2: Convert to metres (same unit as roll size).</b><br>
-                    22,000 cm = 22,000 ÷ 100 = <strong>220 m</strong></div>
-                    <div class="exp-step"><b>Step 3: Divide by roll size to find number of rolls.</b><br>
-                    Number of rolls = 220 m ÷ 25 m/roll = <strong>8.8 rolls</strong></div>
-                    <div class="exp-step"><b>Step 4: Round up (can't buy partial rolls).</b><br>
-                    Since 8.8 > 8, Jess cannot buy exactly 8 rolls — she needs at least 9 rolls to have enough ribbon.</div>
-                    <div class="exp-step">✅ <strong>Jess needs to buy 9 rolls.</strong></div>
+                    <div class="exp-step"><b>Step 1: Convert both lengths to the same unit (centimetres).</b><br>
+                    Length of 1 piece needed = <strong>110 cm</strong><br>
+                    Length of 1 roll = 25 m = 25 × 100 = <strong>2,500 cm</strong></div>
+                    <div class="exp-step"><b>Step 2: Calculate how many <u>whole pieces</u> can be cut from ONE roll.</b><br>
+                    Number of pieces per roll = 2,500 cm ÷ 110 cm = 22.72…<br>
+                    Since Jess needs <em>complete</em> 110 cm pieces (cannot piece together scraps), she can only get <strong>22 full pieces per roll</strong><br>
+                    <em style="color:#64748b;font-size:0.9em">(80 cm of scrap remains unused from each roll)</em></div>
+                    <div class="exp-step"><b>Step 3: Calculate the total number of rolls needed.</b><br>
+                    Jess needs 200 pieces total<br>
+                    Number of rolls = 200 pieces ÷ 22 pieces/roll = 9.09…<br>
+                    Since she cannot buy a fraction of a roll, she must round up to <strong>10 rolls</strong></div>
+                    <div class="exp-step"><b>Verify:</b> 10 rolls × 22 pieces/roll = 220 pieces ✓ (exceeds the 200 needed)<br>
+                    Check: 9 rolls × 22 pieces/roll = 198 pieces ✗ (2 pieces short!)</div>
+                    <div class="exp-step">✅ <strong>Jess needs to buy 10 rolls of ribbon.</strong></div>
                     <div class="exp-step" style="background:#fff3cd;border-left:3px solid #ffc107;border-radius:0 8px 8px 0;padding:0.8rem;margin-top:0.8rem">
-                        <b>💡 Key Insight — "Least Number" means rounding UP:</b><br>
-                        When a problem asks for the <em>least number</em> of items needed, and division gives a decimal, always <strong>round up</strong> (ceiling function). Jess can't buy 8.8 rolls, so she must buy 9.
+                        <b>⚠️ Common Trap:</b><br>
+                        If you simply calculated total length (200 × 110 = 22,000 cm = 220 m) and divided by roll size (220 ÷ 25 = 8.8 → 9 rolls), you'd get the wrong answer!<br>
+                        The key is that <strong>pieces cannot be pieced together from scrap</strong>. Each roll yields only 22 whole pieces, not a fractional amount.
                     </div>
                 </div>
             </div>
