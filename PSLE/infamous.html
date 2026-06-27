@@ -687,7 +687,7 @@
             <h3>Triangle Pattern Completion</h3>
             <img src="psle2019_q17_triangles.png" alt="PSLE 2019 Triangle Pattern — Figures 1 to 4" style="width:100%;max-width:700px;border-radius:12px;display:block;margin:0 auto 1.4rem;border:1px solid var(--border);background:#fff;padding:0.5rem;">
 
-            <table class="data-table">
+            <!-- <table class="data-table">
                 <thead>
                     <tr>
                         <th>Figure</th>
@@ -704,7 +704,7 @@
                     <tr><td>5</td><td>15</td><td>10</td><td>25</td></tr>
                     <tr><td style="color:var(--gold)">250</td><td>?</td><td>?</td><td>?</td></tr>
                 </tbody>
-            </table>
+            </table> -->
 
             <!-- Part (a) -->
             <div class="part-wrap">
@@ -716,25 +716,48 @@
                 </div>
                 <div class="feedback" id="fb-a2a"></div>
                 <div class="explanation" id="exp-a2a">
-                    <div class="exp-label"><i class="fas fa-lightbulb"></i> Finding the Pattern</div>
-                    <div class="exp-step"><b>Key Insight:</b> Odd-numbered rows are white. Row r has (2r − 1) triangles.</div>
-                    <div class="exp-step" style="background:#eff6ff;border-left:3px solid #3b82f6;border-radius:0 8px 8px 0">
-                        <b>Sum of Arithmetic Sequence Formula:</b><br>
-                        <span style="font-size:1.15rem;font-family:'Fredoka One',cursive;color:#1d4ed8;letter-spacing:0.02em">Sₙ = n/2 × (a₁ + aₙ)</span><br>
-                        <span style="color:#475569;font-size:0.92em">
-                            where &nbsp;<b>n</b> = number of terms in the sequence<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>a₁</b> = first term &nbsp;|&nbsp; <b>aₙ</b> = last term
-                        </span><br>
-                        <em style="color:#64748b;font-size:0.88em">To find the sum: average the first and last term, then multiply by the number of terms.</em>
+                    <div class="exp-label"><i class="fas fa-lightbulb"></i> Compare and Contrast Method</div>
+                    <div class="exp-step"><b>Step 1: Compare the difference between white and grey triangles in each figure</b><br>
+                    <table style="font-size:0.9rem;margin:0.6rem 0;border-collapse:collapse;width:100%;max-width:400px;">
+                        <tr style="border-bottom:1px solid #cbd5e1;">
+                            <td style="padding:0.4rem 0.6rem;"><b>Figure</b></td>
+                            <td style="padding:0.4rem 0.6rem;text-align:center;"><b>Difference (White − Grey)</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:0.4rem 0.6rem;">1</td>
+                            <td style="padding:0.4rem 0.6rem;text-align:center;">1 − 0 = <b>1</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:0.4rem 0.6rem;">2</td>
+                            <td style="padding:0.4rem 0.6rem;text-align:center;">1 − 3 = <b>−2</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:0.4rem 0.6rem;">3</td>
+                            <td style="padding:0.4rem 0.6rem;text-align:center;">6 − 3 = <b>3</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:0.4rem 0.6rem;">4</td>
+                            <td style="padding:0.4rem 0.6rem;text-align:center;">6 − 10 = <b>−4</b></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.4rem 0.6rem;">5</td>
+                            <td style="padding:0.4rem 0.6rem;text-align:center;">15 − 10 = <b>5</b></td>
+                        </tr>
+                    </table>
                     </div>
-                    <div class="exp-step"><b>White rows in Figure 250:</b> rows 1, 3, 5, …, 249 → 125 white rows<br>
-                    Row 1 → 1 triangle<br>
-                    Row 3 → 5 triangles<br>
-                    Row 5 → 9 triangles<br>
-                    ⋮<br>
-                    Row 249 → 2 × 249 − 1 = 497 triangles</div>
-                    <div class="exp-step"><b>Sum (arithmetic sequence, 125 terms, first = 1, last = 497):</b><br>
-                    White = 125 × (1 + 497) ÷ 2 = 125 × 249 = <strong>31,125</strong></div>
+                    <div class="exp-step"><b>Step 2: Contrast odd vs even figures</b><br>
+                    <span style="color:#475569;">In <b>odd-numbered figures</b> (1, 3, 5, …), there are more <b>white</b> triangles than grey.<br>
+                    In <b>even-numbered figures</b> (2, 4, 6, …), there are more <b>grey</b> triangles than white.</span><br><br>
+                    Since <strong>Figure 250 is even-numbered</strong>, there will be <strong>250 more grey triangles than white triangles</strong>.<br>
+                    ∴ No. of grey = No. of white + 250
+                    </div>
+                    <div class="exp-step"><b>Step 3: Compute the number of white and grey triangles in Figure 250</b><br>
+                    Total = White + Grey = White + (White + 250) = 2 × White + 250<br><br>
+                    Since total triangles in Fig. 250 = 250² = <strong>62,500</strong><br>
+                    62,500 = 2 × White + 250<br>
+                    2 × White = 62,500 − 250 = 62,250<br>
+                    White = 62,250 ÷ 2 = <strong>31,125</strong>
+                    </div>
                     <div class="exp-step">✅ <strong>There are 31,125 white triangles in the 250th figure.</strong></div>
                 </div>
             </div>
@@ -751,26 +774,16 @@
                 </div>
                 <div class="feedback" id="fb-a2b"></div>
                 <div class="explanation" id="exp-a2b">
-                    <div class="exp-label"><i class="fas fa-lightbulb"></i> Finding the Pattern</div>
-                    <div class="exp-step"><b>Key Insight:</b> Even-numbered rows are grey. Row r has (2r − 1) triangles.</div>
-                    <div class="exp-step" style="background:#eff6ff;border-left:3px solid #3b82f6;border-radius:0 8px 8px 0">
-                        <b>Sum of Arithmetic Sequence Formula:</b><br>
-                        <span style="font-size:1.15rem;font-family:'Fredoka One',cursive;color:#1d4ed8;letter-spacing:0.02em">Sₙ = n/2 × (a₁ + aₙ)</span><br>
-                        <span style="color:#475569;font-size:0.92em">
-                            where &nbsp;<b>n</b> = number of terms in the sequence<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>a₁</b> = first term &nbsp;|&nbsp; <b>aₙ</b> = last term
-                        </span><br>
-                        <em style="color:#64748b;font-size:0.88em">To find the sum: average the first and last term, then multiply by the number of terms.</em>
+                    <div class="exp-label"><i class="fas fa-lightbulb"></i> Compare and Contrast Method (continued from Part a)</div>
+                    <div class="exp-step"><b>From Part (a), we found:</b><br>
+                    White triangles in Fig. 250 = <strong>31,125</strong><br><br>
+                    Using the relationship: <strong>Grey = White + 250</strong><br>
+                    Grey = 31,125 + 250 = <strong>31,375</strong>
                     </div>
-                    <div class="exp-step"><b>Grey rows in Figure 250:</b> rows 2, 4, 6, …, 250 → 125 grey rows<br>
-                    Row 2 → 3 triangles<br>
-                    Row 4 → 7 triangles<br>
-                    Row 6 → 11 triangles<br>
-                    ⋮<br>
-                    Row 250 → 2 × 250 − 1 = 499 triangles</div>
-                    <div class="exp-step"><b>Sum (arithmetic sequence, 125 terms, first = 3, last = 499):</b><br>
-                    Grey = 125 × (3 + 499) ÷ 2 = 125 × 251 = <strong>31,375</strong></div>
-                    <div class="exp-step"><b>Verify:</b> White + Grey = 31,125 + 31,375 = 62,500 = 250² ✓</div>
+                    <div class="exp-step"><b>Verify the answer:</b><br>
+                    Total = White + Grey = 31,125 + 31,375 = <strong>62,500</strong><br>
+                    Check: 250² = 62,500 ✓
+                    </div>
                     <div class="exp-step">✅ <strong>There are 31,375 grey triangles in the 250th figure.</strong></div>
                 </div>
             </div>
