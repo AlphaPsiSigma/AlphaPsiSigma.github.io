@@ -365,7 +365,7 @@
             <div class="dash-label">❌ Wrong</div>
         </div>
         <div class="dash-card dc-total">
-            <div class="dash-num"><span id="inf-done">0</span><span style="font-size:1rem;opacity:0.6">/7</span></div>
+            <div class="dash-num"><span id="inf-done">0</span><span style="font-size:1rem;opacity:0.6">/10</span></div>
             <div class="dash-label">📋 Done</div>
         </div>
         <div class="dash-card dc-pct">
@@ -795,7 +795,7 @@
     <div class="case-card">
         <div class="case-header">
             <span class="case-num">Question 4</span>
-            <span class="case-source">PSLE 2017 · Mathematics Paper 2 · Question 17</span>
+            <span class="case-source">PSLE 2017 · Mathematics Paper 2 · Question 10</span>
         </div>
         <div class="case-body">
             <h3>Jess's Ribbons</h3>
@@ -837,6 +837,67 @@
                         If you simply calculated total length (200 × 110 = 22,000 cm = 220 m) and divided by roll size (220 ÷ 25 = 8.8 → 9 rolls), you'd get the wrong answer!<br>
                         The key is that <strong>pieces cannot be pieced together from scrap</strong>. Each roll yields only 22 whole pieces, not a fractional amount.
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ───── Q5: SEMICIRCLES ───── -->
+    <div class="case-card">
+        <div class="case-header">
+            <span class="case-num">Question 5</span>
+            <span class="case-source">PSLE 2019 · Mathematics Paper 2 · Question 16</span>
+        </div>
+        <div class="case-body">
+            <h3>Overlapping Semicircles</h3>
+            <img src="psle2019_q16_semicircles.png" alt="PSLE 2019 Mathematics Paper 2, Question 16 — Overlapping Semicircles" style="width:100%;max-width:900px;border-radius:12px;display:block;margin:0 auto 1.4rem;border:1px solid var(--border);background:#fff;padding:0.5rem;">
+
+            <!-- Part (a) -->
+            <div class="part-wrap">
+                <div class="part-label"><i class="fas fa-circle-question"></i> Part (a)</div>
+                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">What is the diameter of each semicircle?</p>
+                <div class="input-row">
+                    <input class="ans-input" id="a5a" type="text" placeholder="Your answer…">
+                    <button class="btn-submit" onclick="checkAns('a5a','fb-a5a','exp-a5a','36',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
+                </div>
+                <div class="feedback" id="fb-a5a"></div>
+                <div class="explanation" id="exp-a5a">
+                    <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step Working</div>
+                    <div class="exp-step"><b>Step 1: The non-overlapped part of the first semicircle is 22 cm.</b><br>
+                    Let <em>D</em> = diameter, <em>a</em> = overlap between Semicircles 1 &amp; 2<br>
+                    D − a = 22 cm</div>
+                    <div class="exp-step"><b>Step 2: Find the overlap between Semicircles 2 &amp; 3.</b><br>
+                    The distance from start of Semicircle 2 to start of Semicircle 3 is 12 cm.<br>
+                    Let <em>b</em> = overlap between Semicircles 2 &amp; 3<br>
+                    b = 22 cm − 12 cm = <strong>10 cm</strong></div>
+                    <div class="exp-step"><b>Step 3: Use the middle semicircle to find the diameter.</b><br>
+                    The middle semicircle has an exposed baseline of 16 cm and overlaps by 10 cm on both left and right sides.<br>
+                    Diameter = 10 cm + 16 cm + 10 cm = <strong>36 cm</strong></div>
+                    <div class="exp-step">✅ <strong>The diameter of each semicircle is 36 cm.</strong></div>
+                </div>
+            </div>
+
+            <div class="part-divider"></div>
+
+            <!-- Part (b) -->
+            <div class="part-wrap">
+                <div class="part-label"><i class="fas fa-circle-question"></i> Part (b)</div>
+                <p style="font-size:0.9rem;color:#475569;margin-bottom:0.8rem;">What is the perimeter of the figure? (Round to 2 decimal places)</p>
+                <div class="input-row">
+                    <input class="ans-input" id="a5b" type="text" placeholder="Your answer…">
+                    <button class="btn-submit" onclick="checkAns('a5b','fb-a5b','exp-a5b','366.74',null,null)"><i class="fas fa-paper-plane"></i> Submit</button>
+                </div>
+                <div class="feedback" id="fb-a5b"></div>
+                <div class="explanation" id="exp-a5b">
+                    <div class="exp-label"><i class="fas fa-lightbulb"></i> Step-by-Step Working</div>
+                    <div class="exp-step"><b>Step 1: Sum all the exposed straight baseline segments.</b><br>
+                    Straight lines = 22 + 12 + 16 + 12 + 22 = <strong>84 cm</strong></div>
+                    <div class="exp-step"><b>Step 2: Calculate the total curved arc length.</b><br>
+                    The 5 semicircles combine to form 2.5 full circles.<br>
+                    Curved length = 2.5 × (π × 36) = 90π ≈ <strong>282.74 cm</strong></div>
+                    <div class="exp-step"><b>Step 3: Add straight and curved components.</b><br>
+                    Total perimeter = 84 + 282.74 = <strong>366.74 cm</strong></div>
+                    <div class="exp-step">✅ <strong>The perimeter of the figure is 366.74 cm.</strong></div>
                 </div>
             </div>
         </div>
