@@ -465,6 +465,50 @@ p { color: var(--text-charcoal); font-size: 1.2rem; }
     .section-icon-wrap { display: none; }
 }
 
+/* COUNTRY FLAGS */
+.countries-flags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: nowrap;
+}
+
+.flag-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 140, 66, 0.15), rgba(245, 200, 0, 0.15));
+    border: 2.5px solid rgba(255, 140, 66, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.flag-circle:hover {
+    transform: translateY(-6px) scale(1.1);
+    background: linear-gradient(135deg, rgba(255, 140, 66, 0.25), rgba(245, 200, 0, 0.25));
+    border-color: rgba(255, 140, 66, 0.5);
+    box-shadow: 0 10px 25px rgba(255, 140, 66, 0.25);
+}
+
+@media (max-width: 768px) {
+    .countries-flags {
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .flag-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+}
+
 /* STATS SECTION */
 .stats-section {
     background: rgba(78, 120, 55, 0.82);
@@ -1479,6 +1523,35 @@ footer p { color: rgba(255,255,255,0.8); }
     transform: translateY(3px);
     box-shadow: 0 2px 0 #7f1d1d, 0 4px 10px rgba(220,38,38,0.4);
 }
+
+.btn-video {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #000 !important;
+    border: 2.5px solid #fcd34d;
+    border-radius: 50px;
+    padding: 0.9rem 1.8rem;
+    font-weight: 800;
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 0 #b45309, 0 8px 18px rgba(245,158,11,0.45);
+}
+
+.btn-video:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 9px 0 #b45309, 0 12px 28px rgba(245,158,11,0.55);
+    color: #000 !important;
+}
+
+.btn-video:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #b45309, 0 4px 10px rgba(245,158,11,0.4);
+}
+
 @keyframes infamyGlow {
     0%, 100% { box-shadow: 0 6px 0 #7f1d1d, 0 8px 24px rgba(220,38,38,0.5); }
     50%       { box-shadow: 0 6px 0 #7f1d1d, 0 8px 36px rgba(255,100,0,0.7); }

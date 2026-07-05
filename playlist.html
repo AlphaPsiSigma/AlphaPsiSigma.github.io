@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Videos — Alpha Psi Sigma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .playlist-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 5%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .playlist-container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .playlist-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .playlist-header h1 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 2.2rem;
+            color: #1e293b;
+            margin-bottom: 0.8rem;
+            font-weight: 900;
+        }
+
+        .playlist-header p {
+            font-size: 1.05rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .playlist-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: block;
+            position: relative;
+        }
+
+        .playlist-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .playlist-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .playlist-image:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+        }
+
+        .playlist-image:hover .play-button {
+            transform: scale(1.15);
+            box-shadow: 0 12px 35px rgba(251, 191, 36, 0.6);
+        }
+
+        .playlist-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+        }
+
+        .playlist-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        .playlist-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            border: 2.5px solid #667eea;
+            color: #667eea !important;
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background: #667eea;
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-back:active {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 768px) {
+            .playlist-section {
+                padding: 2rem 5%;
+                min-height: auto;
+            }
+
+            .playlist-container {
+                padding: 1.5rem;
+            }
+
+            .playlist-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .playlist-header p {
+                font-size: 0.95rem;
+            }
+
+            .playlist-buttons {
+                flex-direction: column;
+            }
+
+            .btn-back {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Playlist Section -->
+    <section class="playlist-section">
+        <div class="playlist-container">
+            <div class="playlist-header">
+                <h1>🏆 Think Like a Winner</h1>
+                <p>Psychological and motivational frameworks that enhance your child's character and confidence, building the mindset of a true winner.</p>
+                <p style="font-size: 1rem; color: #475569; margin-top: 1.5rem; line-height: 1.8;">
+                    This comprehensive video series explores the psychological and motivational frameworks that help your child develop a winner's mindset.
+                    Through expert insights and practical strategies, we cover topics that enhance character development, boost confidence, and build resilience.
+                </p>
+            </div>
+
+            <!-- Clickable Playlist Image -->
+            <a href="https://youtube.com/playlist?list=PLt9p7r6LZIAh4A83-Of6OXpHBe21kAnWx&si=nt19gpSahqQU0gAY" target="_blank" class="playlist-image">
+                <img src="PSLE/playlist.jpg" alt="Think Like a Winner Playlist - Click to Watch on YouTube">
+                <div class="play-overlay">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Buttons -->
+            <div class="playlist-buttons">
+                <a href="index.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <a href="https://youtube.com/playlist?list=PLt9p7r6LZIAh4A83-Of6OXpHBe21kAnWx&si=nt19gpSahqQU0gAY" target="_blank" class="btn-video">
+                    <i class="fas fa-play-circle"></i> Watch on YouTube
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
