@@ -266,12 +266,12 @@ async function getBotReply(userMessage) {
         return "Here's our consultation pricing 💰<br><br>" +
                "📌 <strong>Deposit:</strong> SGD $20 (non-refundable, required to confirm your slot)<br>" +
                "⏱️ <strong>Rate:</strong> SGD $2 per min<br><br>" +
-               "Type <strong>book</strong> to reserve your slot, or email us at info@alphapsisigma.com for more details!";
+               "Type <strong>book</strong> to reserve your slot, or contact us via the Contact Us form or Telegram for more details!";
     if (msg.includes('contact') || msg.includes('email'))
-        return "You can reach us at info@alphapsisigma.com. We'd love to hear from you!";
+        return "You can reach us through email (click on \"Contact Us\") or Telegram. We'd love to hear from you!";
     if (msg.includes('who') || msg.includes('founder'))
         return "Alpha Psi Sigma was founded by Dr. Jimmy Y. Zhong and Dr. Sim Kuan Goh — both leading experts in neuroscience, AI, and education.";
-    return "Thanks for your message! 😊 Type <strong>book</strong> to schedule a consultation, or email us at info@alphapsisigma.com.";
+    return "Thanks for your message! 😊 Type <strong>book</strong> to schedule a consultation, or reach out via our Contact Us form or Telegram!";
 }
 // ────────────────────────────────────────────────────────────────────────────
 
