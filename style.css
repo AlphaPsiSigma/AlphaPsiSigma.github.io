@@ -496,6 +496,48 @@ p { color: var(--text-charcoal); font-size: 1.2rem; }
     box-shadow: 0 10px 25px rgba(255, 140, 66, 0.25);
 }
 
+.flag-circle::after {
+    content: attr(data-country);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    letter-spacing: 0.05em;
+}
+
+.flag-circle::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #1e293b;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.flag-circle:hover::after,
+.flag-circle:hover::before {
+    opacity: 1;
+}
+
 @media (max-width: 768px) {
     .countries-flags {
         gap: 1rem;
