@@ -1,3 +1,37 @@
+// ── DARK MODE ────────────────────────────────────────────────────────────────
+function initDarkMode() {
+    const darkModeToggle = document.getElementById('darkmode-toggle');
+    if (!darkModeToggle) return;
+
+    // Check if dark mode was previously enabled
+    const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    // Listen for toggle clicks
+    darkModeToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.body.classList.toggle('dark-mode');
+
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('darkMode', 'enabled');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+    });
+}
+
+// Initialize dark mode when page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDarkMode);
+} else {
+    initDarkMode();
+}
+
 // ── CHATBOT WIDGET ───────────────────────────────────────────────────────────
 const chatWidget   = document.getElementById('chat-widget');
 const chatToggle   = document.getElementById('chat-toggle');

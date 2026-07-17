@@ -145,8 +145,9 @@
             background: #f8fafc; border-radius: 12px;
             border: 1px solid #e2e8f0; padding: 1.2rem 1.4rem;
             font-size: 1.02rem; color: #334155; line-height: 1.85; margin-bottom: 1.4rem;
+            font-weight: 800;
         }
-        .q-block .qline { margin-bottom: 0.4rem; }
+        .q-block .qline { margin-bottom: 0.4rem; font-weight: 800; }
         .q-block .qline:last-child { margin-bottom: 0; }
 
         /* ── PART LABEL ── */
@@ -329,6 +330,61 @@
             .case-body { padding: 1.2rem; }
             .article-body { padding: 1.2rem; }
         }
+
+        /* ── DARK MODE ── */
+        :root {
+            --dm-bg-0: #0b0f16;
+            --dm-bg-1: #12171f;
+            --dm-bg-2: #1a2029;
+            --dm-bg-3: #232a35;
+            --dm-border: rgba(148, 163, 184, 0.14);
+            --dm-border-strong: rgba(148, 163, 184, 0.28);
+            --dm-text-primary: #f4f6f9;
+            --dm-text-secondary: #aab3c2;
+            --dm-accent: #fbbf24;
+        }
+        .darkmode-btn { transition: color 0.3s ease, transform 0.2s ease; }
+        .darkmode-btn:hover { transform: scale(1.15) rotate(-8deg); }
+        body { transition: background 0.4s ease, color 0.4s ease; }
+        nav { transition: background 0.4s ease; }
+        body.dark-mode nav {
+            background: linear-gradient(to right, #1a1208, #2b1c08, #3d2a0a, #4a3210, #3d2a0a) !important;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        body.dark-mode .nav-logo span { color: var(--dm-accent) !important; }
+        body.dark-mode .nav-link-btn { background: rgba(251,191,36,0.15) !important; color: var(--dm-accent) !important; }
+        body.dark-mode .nav-link-btn:hover { background: rgba(251,191,36,0.28) !important; }
+        body.dark-mode {
+            background:
+                radial-gradient(ellipse 1000px 500px at 20% 0%, rgba(220, 38, 38, 0.07), transparent 60%),
+                radial-gradient(ellipse 900px 500px at 90% 20%, rgba(251, 191, 36, 0.06), transparent 55%),
+                var(--dm-bg-0) !important;
+            color: var(--dm-text-secondary) !important;
+        }
+        body.dark-mode .darkmode-btn { color: var(--dm-accent); }
+        body.dark-mode footer { background: var(--dm-bg-1) !important; border-color: var(--dm-border) !important; color: var(--dm-text-secondary) !important; }
+        body.dark-mode .case-card {
+            background: linear-gradient(160deg, var(--dm-bg-2), var(--dm-bg-1)) !important;
+            border-color: var(--dm-border-strong) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35) !important;
+        }
+        body.dark-mode .case-header { background: var(--dm-bg-2) !important; border-bottom-color: var(--dm-border-strong) !important; }
+        body.dark-mode .case-body h3 { color: var(--dm-text-primary) !important; }
+        body.dark-mode .case-source { color: #f87171 !important; }
+        body.dark-mode .q-block { background: var(--dm-bg-2) !important; border-color: var(--dm-border) !important; color: var(--dm-text-secondary) !important; }
+        body.dark-mode .q-block strong { color: var(--dm-text-primary) !important; }
+        body.dark-mode .part-label { color: #f87171 !important; }
+        body.dark-mode .ans-input { background: var(--dm-bg-2) !important; border-color: var(--dm-border-strong) !important; color: var(--dm-text-primary) !important; }
+        body.dark-mode .ans-input:focus { background: var(--dm-bg-3) !important; }
+        body.dark-mode .explanation { background: var(--dm-bg-2) !important; border-color: var(--dm-border) !important; color: var(--dm-text-secondary) !important; }
+        body.dark-mode .explanation b { color: var(--dm-text-primary) !important; }
+        body.dark-mode .exp-step { background: var(--dm-bg-3) !important; }
+        body.dark-mode .article-box { background: var(--dm-bg-2) !important; border-color: var(--dm-border-strong) !important; }
+        body.dark-mode .article-body p,
+        body.dark-mode .article-body li { color: var(--dm-text-secondary) !important; }
+        body.dark-mode .intro-strip { background: var(--dm-bg-1) !important; color: var(--dm-text-secondary) !important; border-color: var(--dm-border) !important; }
+        body.dark-mode .data-table th { background: var(--dm-bg-3) !important; color: var(--dm-text-secondary) !important; border-color: var(--dm-border) !important; }
+        body.dark-mode .data-table td { background: var(--dm-bg-2) !important; color: var(--dm-text-secondary) !important; border-color: var(--dm-border) !important; }
     </style>
 </head>
 <body>
@@ -339,6 +395,9 @@
     <div class="nav-links">
         <a href="index.html" class="nav-link-btn"><i class="fas fa-arrow-left"></i> Practice Quiz</a>
         <a href="../index.html" class="nav-link-btn"><i class="fas fa-home"></i> Home</a>
+        <button id="darkmode-toggle" class="darkmode-btn" aria-label="Toggle dark mode" title="Toggle dark mode" style="background: none; border: none; color: #3b1200; font-size: 1.3rem; cursor: pointer; padding: 0.5rem; transition: color 0.3s ease, transform 0.2s ease;">
+            <i class="fas fa-moon"></i>
+        </button>
     </div>
 </nav>
 
@@ -1114,6 +1173,22 @@
     }
 
     renderLike();
+
+    /* ── DARK MODE TOGGLE ── */
+    (function initDarkMode() {
+        const btn = document.getElementById('darkmode-toggle');
+        if (!btn) return;
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            btn.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        btn.addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const on = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', on ? 'enabled' : 'disabled');
+            btn.innerHTML = on ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    })();
 </script>
 </body>
 </html>

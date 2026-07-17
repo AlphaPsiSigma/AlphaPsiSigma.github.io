@@ -297,13 +297,78 @@
             .dash-card { padding: 0.7rem 1rem; min-width: 70px; }
             .dash-num { font-size: 1.6rem; }
         }
+
+        /* ── DARK MODE ── */
+        :root {
+            --dm-bg-0: #0b0f16;
+            --dm-bg-1: #12171f;
+            --dm-bg-2: #1a2029;
+            --dm-bg-3: #232a35;
+            --dm-border: rgba(148, 163, 184, 0.14);
+            --dm-border-strong: rgba(148, 163, 184, 0.28);
+            --dm-text-primary: #f4f6f9;
+            --dm-text-secondary: #aab3c2;
+            --dm-accent: #fbbf24;
+        }
+        .darkmode-btn { transition: color 0.3s ease, transform 0.2s ease; }
+        .darkmode-btn:hover { transform: scale(1.15) rotate(-8deg); }
+        body { transition: background 0.4s ease, color 0.4s ease; }
+        nav { transition: background 0.4s ease; }
+        body.dark-mode nav {
+            background: linear-gradient(to right, #1a1208, #2b1c08, #3d2a0a, #4a3210, #3d2a0a) !important;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        body.dark-mode .darkmode-btn { color: var(--dm-accent); }
+        body.dark-mode .nav-logo span { color: var(--dm-accent) !important; }
+        body.dark-mode .nav-back { background: rgba(251,191,36,0.15) !important; color: var(--dm-accent) !important; }
+        body.dark-mode .nav-back:hover { background: rgba(251,191,36,0.28) !important; }
+        body.dark-mode {
+            background:
+                radial-gradient(ellipse 1000px 500px at 20% 0%, rgba(124, 58, 237, 0.08), transparent 60%),
+                radial-gradient(ellipse 900px 500px at 90% 20%, rgba(251, 191, 36, 0.06), transparent 55%),
+                var(--dm-bg-0) !important;
+            color: var(--dm-text-secondary) !important;
+        }
+        body.dark-mode footer { background: var(--dm-bg-1) !important; border-color: var(--dm-border) !important; color: var(--dm-text-secondary) !important; }
+        body.dark-mode .qcard {
+            background: linear-gradient(160deg, var(--dm-bg-2), var(--dm-bg-1)) !important;
+            border-color: var(--dm-border) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35) !important;
+        }
+        body.dark-mode .qcard.correct-card { background: linear-gradient(160deg, rgba(34,197,94,0.12), var(--dm-bg-1)) !important; border-color: rgba(74,222,128,0.35) !important; }
+        body.dark-mode .qcard.wrong-card { background: linear-gradient(160deg, rgba(220,38,38,0.12), var(--dm-bg-1)) !important; border-color: rgba(252,165,165,0.35) !important; }
+        body.dark-mode .q-text { color: var(--dm-text-primary) !important; }
+        body.dark-mode .q-type { color: #7c8798 !important; }
+        body.dark-mode .card-divider { background: var(--dm-border) !important; }
+        body.dark-mode .option {
+            background: var(--dm-bg-2) !important;
+            border-color: var(--dm-border-strong) !important;
+            color: var(--dm-text-secondary) !important;
+        }
+        body.dark-mode .option:hover:not(.disabled) { background: var(--dm-bg-3) !important; border-color: #3a7a20 !important; color: #86efac !important; }
+        body.dark-mode .option.selected { background: rgba(58,122,32,0.18) !important; border-color: #3a7a20 !important; color: var(--dm-text-primary) !important; }
+        body.dark-mode .option.revealed-right { background: rgba(21,128,61,0.2) !important; border-color: #15803d !important; }
+        body.dark-mode .option.revealed-wrong { background: rgba(220,38,38,0.18) !important; border-color: #dc2626 !important; }
+        body.dark-mode .opt-letter { background: var(--dm-bg-3) !important; color: var(--dm-text-secondary) !important; }
+        body.dark-mode .fill-input { background: var(--dm-bg-2) !important; border-color: var(--dm-border-strong) !important; color: var(--dm-text-primary) !important; }
+        body.dark-mode .fill-input::placeholder { color: #7c8798 !important; }
+        body.dark-mode .fill-input:focus { background: var(--dm-bg-3) !important; }
+        body.dark-mode .btn-check { color: white !important; }
+        body.dark-mode .section-label { color: var(--dm-text-primary) !important; }
+        body.dark-mode .badge-math { background: rgba(59,130,246,0.15) !important; color: #93c5fd !important; border-color: rgba(59,130,246,0.35) !important; }
+        body.dark-mode .badge-english { background: rgba(249,115,22,0.15) !important; color: #fdba74 !important; border-color: rgba(249,115,22,0.35) !important; }
     </style>
 </head>
 <body>
 
 <nav>
     <a href="../index.html" class="nav-logo">Alpha Psi <span>Sigma</span></a>
-    <a href="../index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Home</a>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="../index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Home</a>
+        <button id="darkmode-toggle" class="darkmode-btn" aria-label="Toggle dark mode" title="Toggle dark mode" style="background: none; border: none; color: #1e293b; font-size: 1.3rem; cursor: pointer; padding: 0.5rem; transition: color 0.3s ease, transform 0.2s ease;">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
 </nav>
 
 <!-- HERO -->
@@ -878,6 +943,22 @@
     const style = document.createElement('style');
     style.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}';
     document.head.appendChild(style);
+
+    // Dark mode toggle
+    (function initDarkMode() {
+        const btn = document.getElementById('darkmode-toggle');
+        if (!btn) return;
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            btn.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        btn.addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const on = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', on ? 'enabled' : 'disabled');
+            btn.innerHTML = on ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    })();
 </script>
 </body>
 </html>

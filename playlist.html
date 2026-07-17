@@ -185,9 +185,58 @@
                 justify-content: center;
             }
         }
+        /* ── DARK MODE ── */
+        body.dark-mode .playlist-section {
+            background:
+                radial-gradient(ellipse 1000px 500px at 20% 0%, rgba(124, 58, 237, 0.15), transparent 60%),
+                radial-gradient(ellipse 900px 500px at 90% 100%, rgba(251, 191, 36, 0.08), transparent 55%),
+                #0b0f16 !important;
+        }
+        body.dark-mode #playlist-nav {
+            background: rgba(11, 15, 22, 0.9) !important;
+        }
+        body.dark-mode #playlist-nav a {
+            color: #e2e8f0 !important;
+        }
+        body.dark-mode .darkmode-btn {
+            color: #fbbf24 !important;
+        }
+        body.dark-mode .playlist-container {
+            background: linear-gradient(160deg, #1a2029, #12171f) !important;
+            border: 1px solid rgba(148, 163, 184, 0.14);
+        }
+        body.dark-mode .playlist-header h1 {
+            color: #f4f6f9 !important;
+            -webkit-text-fill-color: initial;
+        }
+        body.dark-mode .playlist-header p {
+            color: #aab3c2 !important;
+        }
+        body.dark-mode .btn-back {
+            background: #1a2029 !important;
+            border-color: #fbbf24 !important;
+            color: #fbbf24 !important;
+        }
+        body.dark-mode .btn-back:hover {
+            background: #fbbf24 !important;
+            color: #12171f !important;
+        }
     </style>
 </head>
 <body>
+    <!-- NAV -->
+    <nav id="playlist-nav" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; justify-content: space-between; align-items: center; transition: background 0.4s ease;">
+        <a href="index.html" style="font-size: 1.5rem; font-weight: 700; color: #667eea; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-lightbulb"></i> Alpha Psi Sigma
+        </a>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <a href="index.html" style="color: #333; text-decoration: none; font-weight: 600;">Home</a>
+            <button id="darkmode-toggle" class="darkmode-btn" aria-label="Toggle dark mode" title="Toggle dark mode" style="background: none; border: none; color: #333; font-size: 1.3rem; cursor: pointer; padding: 0.5rem; transition: color 0.3s ease, transform 0.2s ease;">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
     <!-- Playlist Section -->
     <section class="playlist-section">
         <div class="playlist-container">
@@ -251,5 +300,22 @@
             </div>
         </div>
     </section>
+
+    <script>
+        (function initDarkMode() {
+            const btn = document.getElementById('darkmode-toggle');
+            if (!btn) return;
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                btn.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            btn.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+                const on = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', on ? 'enabled' : 'disabled');
+                btn.innerHTML = on ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+        })();
+    </script>
 </body>
 </html>
