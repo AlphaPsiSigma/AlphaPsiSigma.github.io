@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. JZ's Advice — Alpha Psi Sigma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .advice-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 5%;
+            min-height: 100vh;
+        }
+
+        .advice-wrap {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .advice-hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .advice-hero h1 {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 2.1rem;
+            color: white;
+            margin-bottom: 0.6rem;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.25);
+        }
+
+        .advice-hero p {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .advice-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 1.6rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .advice-worry {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #7c3aed;
+            background: rgba(124,58,237,0.1);
+            border: 1.5px solid rgba(124,58,237,0.25);
+            border-radius: 50px;
+            padding: 0.35rem 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .advice-title {
+            font-weight: 900;
+            font-size: 1.25rem;
+            color: #1e293b;
+            margin-bottom: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .advice-qa {
+            font-weight: 800;
+            font-size: 0.98rem;
+            line-height: 1.85;
+            color: #334155;
+            margin-bottom: 0.9rem;
+            padding-left: 1rem;
+            border-left: 3px solid #e2e8f0;
+        }
+
+        .advice-qa:last-child { margin-bottom: 0; }
+
+        .advice-qa .tag-q { color: #7c3aed; font-weight: 900; }
+        .advice-qa .tag-a { color: #3a7a20; font-weight: 900; }
+        .advice-qa em { font-style: italic; color: #475569; }
+
+        .advice-back {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-back-advice {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            border: 2.5px solid #7c3aed;
+            color: #7c3aed !important;
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-back-advice:hover {
+            background: #7c3aed;
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        /* Dark mode */
+        body.dark-mode .advice-section {
+            background:
+                radial-gradient(ellipse 1000px 500px at 20% 0%, rgba(124, 58, 237, 0.18), transparent 60%),
+                radial-gradient(ellipse 900px 500px at 90% 100%, rgba(251, 191, 36, 0.08), transparent 55%),
+                #0b0f16 !important;
+        }
+        body.dark-mode #advice-nav { background: rgba(11, 15, 22, 0.9) !important; }
+        body.dark-mode #advice-nav a { color: #e2e8f0 !important; }
+        body.dark-mode .darkmode-btn { color: #fbbf24 !important; }
+        body.dark-mode .advice-card {
+            background: linear-gradient(160deg, #1a2029, #12171f) !important;
+            border: 1px solid rgba(148,163,184,0.14);
+        }
+        body.dark-mode .advice-title { color: #f4f6f9 !important; }
+        body.dark-mode .advice-qa { color: #aab3c2 !important; border-left-color: rgba(148,163,184,0.2) !important; }
+        body.dark-mode .advice-qa em { color: #8b95a5 !important; }
+        body.dark-mode .btn-back-advice {
+            background: #1a2029 !important;
+            border-color: #fbbf24 !important;
+            color: #fbbf24 !important;
+        }
+        body.dark-mode .btn-back-advice:hover {
+            background: #fbbf24 !important;
+            color: #12171f !important;
+        }
+
+        @media (max-width: 768px) {
+            .advice-section { padding: 2rem 5%; }
+            .advice-hero h1 { font-size: 1.6rem; }
+            .advice-card { padding: 1.4rem 1.3rem; }
+            .advice-title { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV -->
+    <nav id="advice-nav" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; justify-content: space-between; align-items: center; transition: background 0.4s ease;">
+        <a href="index.html" style="font-size: 1.5rem; font-weight: 700; color: #7c3aed; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-lightbulb"></i> Alpha Psi Sigma
+        </a>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <a href="index.html" style="color: #333; text-decoration: none; font-weight: 600;">Home</a>
+            <button id="darkmode-toggle" class="darkmode-btn" aria-label="Toggle dark mode" title="Toggle dark mode" style="background: none; border: none; color: #333; font-size: 1.3rem; cursor: pointer; padding: 0.5rem; transition: color 0.3s ease, transform 0.2s ease;">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Advice Section -->
+    <section class="advice-section">
+        <div class="advice-wrap">
+            <div class="advice-hero">
+                <h1>💡 Dr. JZ's Advice</h1>
+                <p>Answering the big questions kids ask — and the worries parents carry — with cognitive-behavioral wisdom for real life.</p>
+            </div>
+
+            <!-- 1 -->
+            <div class="advice-card">
+                <div class="advice-worry"><i class="fas fa-heart"></i> Worry: "Will my child make the right decisions in life?"</div>
+                <div class="advice-title">1. Making the Right Decisions</div>
+                <div class="advice-qa"><span class="tag-q">Q:</span> <em>How do I know if I'm making the right decision?</em></div>
+                <div class="advice-qa"><span class="tag-a">A:</span> Making the right decision isn't always about choosing the easiest or most popular thing to do. A good decision is one that is kind, honest, fair, and respectful, even when no one else is watching. Before you decide, ask yourself, <em>"Would I be proud of this decision? Would I be happy if someone made the same decision toward me?"</em> Thinking carefully about how your decisions affect other people helps you grow into someone others can trust and respect. Every wise decision, even a small one, helps build strong character, just like laying one brick at a time to build a strong and lasting house.</div>
+            </div>
+
+            <!-- 2 -->
+            <div class="advice-card">
+                <div class="advice-worry"><i class="fas fa-mobile-screen"></i> Worry: "Is my child spending too much time on screens?"</div>
+                <div class="advice-title">2. Screens &amp; Balance</div>
+                <div class="advice-qa"><span class="tag-q">Q:</span> <em>Why can't I play games or watch videos all day?</em></div>
+                <div class="advice-qa"><span class="tag-a">A:</span> Games and videos can be exciting and entertaining, but your brain and body need many different kinds of experiences to grow well. Reading books, exploring nature, playing sports, creating art, solving puzzles, and spending time with family and friends all help you learn important skills that screens cannot teach on their own. Having a healthy balance means making time for both technology and real-life adventures. When you give your mind and body a variety of activities, you become healthier, happier, and more prepared to enjoy all the opportunities life has to offer.</div>
+            </div>
+
+            <!-- 3 -->
+            <div class="advice-card">
+                <div class="advice-worry"><i class="fas fa-brain"></i> Worry: "Can my child think for themselves?"</div>
+                <div class="advice-title">3. Thinking Independently</div>
+                <div class="advice-qa"><span class="tag-q">Q:</span> <em>Why should I think for myself instead of just copying what others say?</em></div>
+                <div class="advice-qa"><span class="tag-a">A:</span> Listening to other people is important because we can learn from their knowledge and experience. But it is just as important to ask questions, think carefully, and decide whether something is true before believing it. Not everything you hear, read, or see is correct, and even popular opinions can sometimes be mistaken. Independent thinking means using your own mind to understand, compare ideas, and make wise decisions. When you are curious, thoughtful, and willing to learn, you become someone who can solve problems, make good choices, and help others do the same.</div>
+            </div>
+
+            <!-- 4 -->
+            <div class="advice-card">
+                <div class="advice-worry"><i class="fas fa-graduation-cap"></i> Worry: "Is my child learning enough for the future?"</div>
+                <div class="advice-title">4. Learning for the Future</div>
+                <div class="advice-qa"><span class="tag-q">Q:</span> <em>Do I have to be the smartest kid in my class to do well when I grow up?</em></div>
+                <div class="advice-qa"><span class="tag-a">A:</span> No. Being successful in life is about much more than getting the highest marks at school. People who do well are often those who are curious, hardworking, responsible, and willing to keep learning throughout their lives. They are not afraid to make mistakes because they understand that mistakes are opportunities to improve. Every new skill you learn, every problem you solve, and every challenge you overcome helps you become stronger and more confident. Your future is shaped not only by what you know today, but also by your willingness to keep learning tomorrow.</div>
+            </div>
+
+            <!-- 5 -->
+            <div class="advice-card">
+                <div class="advice-worry"><i class="fas fa-hand-holding-heart"></i> Worry: "Will my child grow up to be a kind and confident person?"</div>
+                <div class="advice-title">5. Growing Into a Good Person</div>
+                <div class="advice-qa"><span class="tag-q">Q:</span> <em>How can I become a good person?</em></div>
+                <div class="advice-qa"><span class="tag-a">A:</span> Becoming a good person doesn't happen all at once. It happens through the small choices you make every day. When you tell the truth, show kindness, help someone who needs it, admit your mistakes, and keep trying even when something is difficult, you are building strong character. Everyone makes mistakes, and that is part of learning. What matters most is being willing to learn from those mistakes and choosing to do better next time. A truly good person is not someone who is perfect, but someone who keeps growing, treats others with respect, and tries to make the world a little better each day.</div>
+            </div>
+
+            <div class="advice-back">
+                <a href="index.html" class="btn-back-advice">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        (function initDarkMode() {
+            const btn = document.getElementById('darkmode-toggle');
+            if (!btn) return;
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                btn.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            btn.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+                const on = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', on ? 'enabled' : 'disabled');
+                btn.innerHTML = on ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+        })();
+    </script>
+</body>
+</html>
