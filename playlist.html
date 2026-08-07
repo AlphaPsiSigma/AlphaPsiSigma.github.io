@@ -66,7 +66,14 @@
         .playlist-image img {
             width: 100%;
             height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
             display: block;
+        }
+
+        #additional-resource,
+        .playlist-section {
+            scroll-margin-top: 90px;
         }
 
         .play-overlay {
@@ -316,6 +323,16 @@
                 btn.innerHTML = on ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
             });
         })();
+
+        // Re-scroll to the hash target after all images finish loading,
+        // since late-loading images shift the layout and leave the
+        // browser's initial anchor-jump pointing at the wrong spot.
+        if (location.hash) {
+            window.addEventListener('load', function () {
+                const target = document.querySelector(location.hash);
+                if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+            });
+        }
     </script>
 </body>
 </html>
