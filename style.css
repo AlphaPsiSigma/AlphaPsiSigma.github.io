@@ -154,6 +154,20 @@ nav.nav-scrolled .logo-img { height: 55px; }
 
 .logo-accent { color: var(--accent-yellow); }
 
+/* Brand mark — Gothic Bold (Unicode Fraktur) tricolor: white / Russian Blue / Russian Red */
+.logo-alpha,
+.logo-psi,
+.logo-sigma {
+    font-weight: 700;
+}
+.logo-alpha {
+    color: #ffffff !important;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.6), 1px -1px 0 rgba(0,0,0,0.6),
+                 -1px 1px 0 rgba(0,0,0,0.6), 1px 1px 0 rgba(0,0,0,0.6);
+}
+.logo-psi   { color: #0039A6 !important; }
+.logo-sigma { color: #D52B1E !important; }
+
 nav.nav-scrolled .logo-text { font-size: 1.85rem; }
 
 ul { display: flex; list-style: none; gap: 1.5rem; align-items: center; margin: 0; padding: 0; }
