@@ -158,15 +158,40 @@ nav.nav-scrolled .logo-img { height: 55px; }
 .logo-alpha,
 .logo-psi,
 .logo-sigma {
-    font-weight: 700;
+    font-weight: 400;
 }
+/* Alpha: white with a dark 3D extrusion */
 .logo-alpha {
     color: #ffffff !important;
-    text-shadow: -1px -1px 0 rgba(0,0,0,0.6), 1px -1px 0 rgba(0,0,0,0.6),
-                 -1px 1px 0 rgba(0,0,0,0.6), 1px 1px 0 rgba(0,0,0,0.6);
+    text-shadow: 1px 1px 0 #475569, 2px 2px 0 #334155, 3px 3px 0 #1e293b,
+                 4px 6px 8px rgba(0,0,0,0.45);
+}
+/* Psi / Sigma: brand colour + white outline + 3D extrusion so they stay prominent on any background */
+.logo-psi,
+.logo-sigma {
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff,
+                 0 -1px 0 #fff, 0 1px 0 #fff, -1px 0 0 #fff, 1px 0 0 #fff,
+                 2px 2px 0 #0f172a, 3px 3px 0 #0f172a, 4px 4px 0 #0f172a,
+                 5px 7px 8px rgba(0,0,0,0.5);
 }
 .logo-psi   { color: #0039A6 !important; }
 .logo-sigma { color: #D52B1E !important; }
+
+/* Gothic glyphs are wider than the old script font — keep the brand on one line and scale it down on phones */
+.logo-text { white-space: nowrap; }
+@media (max-width: 700px) {
+    .logo-text,
+    nav.nav-scrolled .logo-text { font-size: 1.45rem; }
+    .logo-alpha { text-shadow: 1px 1px 0 #475569, 2px 2px 0 #1e293b, 3px 4px 5px rgba(0,0,0,0.4); }
+    .logo-psi, .logo-sigma {
+        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff,
+                     2px 2px 0 #0f172a, 3px 4px 5px rgba(0,0,0,0.45);
+    }
+}
+@media (max-width: 400px) {
+    .logo-text,
+    nav.nav-scrolled .logo-text { font-size: 1.2rem; }
+}
 
 nav.nav-scrolled .logo-text { font-size: 1.85rem; }
 
